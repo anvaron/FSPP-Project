@@ -1,11 +1,11 @@
 # FSPP Project
 
-Project
+PERN Stack Project
 
 ## Important Links
 
-- [Deployment API Server](https://herokuapp.com)
-- [Deployment Frontend](https://herokuapp.com)
+- [Deployed API Server](https://herokuapp.com)
+- [Deployed Frontend](https://herokuapp.com)
 - [Trello Board](https://trello.com/b/Bcj7uhR4/pern-stack-project)
 - [ERD](https://)
 - [Wireframes](https://)
