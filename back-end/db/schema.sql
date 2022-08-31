@@ -34,17 +34,32 @@ CREATE TABLE public.tokens
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.product_category
+(
+    category_id SERIAL NOT NULL,
+    label character varying(10) NOT NULL,
+    PRIMARY KEY (category_id)
+);
+
 --
 --DROP TABLE IF EXISTS products;
 CREATE TABLE public.products
 (
     product_id SERIAL NOT NULL,
-    name character varying(50) NOT NULL,
+    name character varying(100) NOT NULL,
     price real NOT NULL,
     description text NOT NULL,
+    category_id integer NOT NULL, 
     image_url character varying,
-    PRIMARY KEY (product_id)
+    in_stock boolean DEFAULT false NOT NULL,
+    PRIMARY KEY (product_id),
+    CONSTRAINT fk_category
+      FOREIGN KEY(category_id) 
+	  REFERENCES product_category(category_id)
+      ON DELETE CASCADE
 );
+
+
 
 --
 --DROP TABLE IF EXISTS product_reviews;
@@ -157,6 +172,13 @@ ALTER TABLE public.orders
     NOT VALID;
 
 -- 
+-- ALTER TABLE public.products
+--     ADD FOREIGN KEY (category_id)
+--     REFERENCES public.product_category (category_id)
+--     ON DELETE SET NULL
+--     NOT VALID;
+
+-- 
 ALTER TABLE public.product_reviews
     ADD FOREIGN KEY (product_id)
     REFERENCES public.products (product_id)
@@ -171,9 +193,9 @@ ALTER TABLE public.product_reviews
     NOT VALID;
 
 --
--- CREATE UNIQUE INDEX users_unique_lower_email_idx
---     ON users (lower(email));
+CREATE UNIQUE INDEX users_unique_lower_email_idx
+    ON public.users (lower(email));
 
--- --
--- CREATE UNIQUE INDEX users_unique_lower_username_idx
---     ON users (lower(username));
+--
+CREATE UNIQUE INDEX users_unique_lower_username_idx
+    ON public.users (lower(username));

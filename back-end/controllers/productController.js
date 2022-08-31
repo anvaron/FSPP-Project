@@ -3,7 +3,7 @@ const express = require("express");
 
 const {
 	getAllProducts,
-	// getSnack,
+	getProductById,
 	// updateSnack,
 	// createSnack,
 	// deleteSnack,
@@ -24,22 +24,23 @@ productController.get("/", async (request, response) => {
 	}
 });
 
-// snackController.get("/:id", async (request, response) => {
-// 	const { id } = request.params;
-// 	const snack = await getSnack(id);
-// 	if (snack.id) {
-// 		response.status(200).json({
-// 			success: true,
-// 			payload: snack,
-// 		});
-// 	} else {
-// 		response.status(404).json({
-// 			success: false,
-// 			id: id,
-// 			payload: `not found: no snack is listed at id${id}`,
-// 		});
-// 	}
-// });
+productController.get("/:id", async (request, response) => {
+	const { id } = request.params;
+	const data = await getProductById(id);
+  console.log(data)
+	if (data.id) {
+		response.status(200).json({
+			success: true,
+			payload: data,
+		});
+	} else {
+		response.status(404).json({
+			success: false,
+			id: id,
+			payload: `not found: no product is listed at id ${id}`,
+		});
+	}
+});
 
 // snackController.delete("/:id", async (request, response) => {
 // 	const { id } = request.params;
