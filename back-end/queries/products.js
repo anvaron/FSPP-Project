@@ -25,4 +25,13 @@ const getProductById = async (id) => {
 	}
 };
 
-module.exports = { getAllProducts, getProductById };
+//DELETE one product by :id
+const deleteProduct = async (id) => {
+	try {
+		return await db.one("DELETE FROM products WHERE products.product_id=$1 RETURNING *", id);
+	} catch (error) {
+		return error;
+	}
+};
+
+module.exports = { getAllProducts, getProductById, deleteProduct };
