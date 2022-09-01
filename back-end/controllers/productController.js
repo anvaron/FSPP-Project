@@ -4,14 +4,15 @@ const express = require("express");
 const {
 	getAllProducts,
 	getProductById,
-	// updateSnack,
-	// createSnack,
+	updateProduct,
+	createProduct,
 	deleteProduct,
 } = require("../queries/products");
 
 //const { nameFormatter } = require("../validations/snacksCheck");
 const productController = express();
 
+// GET
 productController.get("/", async (request, response) => {
 	const data = await getAllProducts();
 	if (data[0]) {
@@ -24,6 +25,7 @@ productController.get("/", async (request, response) => {
 	}
 });
 
+// GET :id
 productController.get("/:id", async (request, response) => {
 	const { id } = request.params;
 	const product = await getProductById(id);
@@ -41,6 +43,34 @@ productController.get("/:id", async (request, response) => {
 	}
 });
 
+// POST
+productController.post("/", async (request, response) => {
+	try {
+		const product = await createProduct(request.body);
+		response.json({
+			success: true,
+			payload: product,
+		});
+	} catch (error) {
+		return error;
+	}
+});
+
+// PUT
+productController.put("/:id", async (request, response) => {
+	try {
+		const { id } = request.params;
+		const product = await updateProduct(id, request.body);
+		response.json({
+			success: true,
+			payload: product,
+		});
+	} catch (error) {
+		return error;
+	}
+});
+
+// DELETE
 productController.delete("/:id", async (request, response) => {
 	const { id } = request.params;
 	const product = await deleteProduct(id);
@@ -63,7 +93,5 @@ productController.delete("/:id", async (request, response) => {
 		});
 	}
 });
-
-
 
 module.exports = productController;
