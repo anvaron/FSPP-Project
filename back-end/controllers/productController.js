@@ -4,9 +4,9 @@ const express = require("express");
 const {
 	getAllProducts,
 	getProductById,
-	updateProduct,
+	updateProductById,
 	createProduct,
-	deleteProduct,
+  deleteProductById,
 } = require("../queries/products");
 
 //const { nameFormatter } = require("../validations/snacksCheck");
@@ -60,7 +60,7 @@ productController.post("/", async (request, response) => {
 productController.put("/:id", async (request, response) => {
 	try {
 		const { id } = request.params;
-		const product = await updateProduct(id, request.body);
+		const product = await updateProductById(id, request.body);
 		response.json({
 			success: true,
 			payload: product,
@@ -73,7 +73,7 @@ productController.put("/:id", async (request, response) => {
 // DELETE
 productController.delete("/:id", async (request, response) => {
 	const { id } = request.params;
-	const product = await deleteProduct(id);
+	const product = await deleteProductById(id);
 	if (product) {
 		if (product.id) {
 			response.status(200).json({

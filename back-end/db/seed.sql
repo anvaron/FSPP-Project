@@ -27,5 +27,29 @@ VALUES (
   true
 );
 
-
-
+INSERT INTO users (password, email, fullname, username, google_id, roles, address, city, state, country) 
+VALUES (
+  '123456', 
+  'anvaron@gmail.com',
+  'Andres Varon',
+  'admin',
+  '001',
+  '{admin}',
+  '1337 Dev St NY',
+  'NYC',
+  'NY',
+  'USA'
+);
+INSERT INTO users (password, email, fullname, username, google_id, roles, address, city, state, country) 
+VALUES (
+  'test', 
+  'johndoe@gmail.com',
+  'John Doe',
+  'jdoe',
+  '002',
+  '{customer}',
+  '244 44th Boulevard Av NY',
+  'NYC',
+  'NY',
+  'USA'
+);

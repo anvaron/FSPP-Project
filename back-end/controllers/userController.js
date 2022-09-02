@@ -1,0 +1,99 @@
+//
+const express = require("express");
+
+const {
+	getAllUsers,
+	// getProductById,
+	// updateProduct,
+	// createProduct,
+	// deleteProduct,
+} = require("../queries/users");
+
+//const { nameFormatter } = require("../validations/snacksCheck");
+const userController = express();
+
+// GET
+userController.get("/", async (request, response) => {
+	const data = await getAllUsers();
+	if (data[0]) {
+		response.status(200).json(data
+		//{
+			// success: true,
+			// payload: data,
+		//}
+		);
+	} else {
+		response.status(500).json();
+	}
+});
+
+// // GET :id
+// productController.get("/:id", async (request, response) => {
+// 	const { id } = request.params;
+// 	const product = await getProductById(id);
+// 	if (product.id) {
+// 		response.status(200).json({
+// 			success: true,
+// 			payload: product,
+// 		});
+// 	} else {
+// 		response.status(404).json({
+// 			success: false,
+// 			id: id,
+// 			payload: `not found: no product is listed with id=${id}`,
+// 		});
+// 	}
+// });
+
+// // POST
+// productController.post("/", async (request, response) => {
+// 	try {
+// 		const product = await createProduct(request.body);
+// 		response.json({
+// 			success: true,
+// 			payload: product,
+// 		});
+// 	} catch (error) {
+// 		return error;
+// 	}
+// });
+
+// // PUT
+// productController.put("/:id", async (request, response) => {
+// 	try {
+// 		const { id } = request.params;
+// 		const product = await updateProduct(id, request.body);
+// 		response.json({
+// 			success: true,
+// 			payload: product,
+// 		});
+// 	} catch (error) {
+// 		return error;
+// 	}
+// });
+
+// // DELETE
+// productController.delete("/:id", async (request, response) => {
+// 	const { id } = request.params;
+// 	const product = await deleteProduct(id);
+// 	if (product) {
+// 		if (product.id) {
+// 			response.status(200).json({
+// 				success: true,
+// 				payload: product,
+// 			});
+// 		} else {
+// 			response.status(404).json({
+// 				success: false,
+// 				payload: product,
+// 			});
+// 		}
+// 	} else {
+// 		response.status(500).json({
+// 			success: false,
+// 			payload: product,
+// 		});
+// 	}
+// });
+
+module.exports = userController;

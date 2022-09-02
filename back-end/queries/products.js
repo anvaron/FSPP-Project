@@ -47,7 +47,7 @@ const createProduct = async (product) => {
 };
 
 // UPDATE: one product by :id
-const updateProduct = async (id, product) => {
+const updateProductById = async (id, product) => {
 	const { name, price, description, category_id, image_url, in_stock } = product;
 	
   try {
@@ -65,7 +65,7 @@ const updateProduct = async (id, product) => {
 };
 
 //DELETE one product by :id
-const deleteProduct = async (id) => {
+const deleteProductById = async (id) => {
 	try {
 		return await db.one(`
       DELETE FROM products WHERE products.product_id=$1 
@@ -76,4 +76,10 @@ const deleteProduct = async (id) => {
 	}
 };
 
-module.exports = { getAllProducts, getProductById, updateProduct, createProduct, deleteProduct };
+module.exports = { 
+	getAllProducts, 
+	getProductById, 
+	updateProductById, 
+	createProduct, 
+	deleteProductById 
+};
