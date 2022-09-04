@@ -3,7 +3,12 @@ const db = require("../db/dbConfig.js");
 //GET all products
 const getAllProducts = async () => {
 	try {
-		const query = await db.any("SELECT * FROM products");
+		const query = await db.any(`
+			SELECT products.product_id as id, products.name, products.price, products.description, products.product_tags, product_category.label AS category, products.image_url, products.in_stock
+			FROM products
+			INNER JOIN product_category 
+      ON product_category.category_id = products.category_id`
+			);
 		return query;
 	} catch (error) {
 		return error;
@@ -14,7 +19,7 @@ const getAllProducts = async () => {
 const getProductById = async (id) => {
 	try {
 		const query = await db.one(`
-      SELECT products.product_id as id, products.name, products.price, products.description, product_category.label, products.image_url, products.in_stock  
+      SELECT products.product_id as id, products.name, products.price, products.description, products.product_tags, product_category.label AS category, products.image_url, products.in_stock  
       FROM products 
       INNER JOIN product_category 
       ON product_category.category_id = products.category_id

@@ -3,7 +3,7 @@ const express = require("express");
 
 const {
 	getAllUsers,
-	// getProductById,
+	getUserById,
 	// updateProduct,
 	// createProduct,
 	// deleteProduct,
@@ -16,34 +16,40 @@ const userController = express();
 userController.get("/", async (request, response) => {
 	const data = await getAllUsers();
 	if (data[0]) {
-		response.status(200).json(data
+	// 	response.status(200).json(
+			response.set('Access-Control-Expose-Headers', 'X-Total-Count'),
+			response.set('Content-Range', `users 0-10/${data.length}`);
+			response.set('Access-Control-Expose-Headers', 'Content-Range');
+      response.set('X-Total-Count', data.length),
+      response.status(200).json(data)
+			//data
 		//{
 			// success: true,
 			// payload: data,
 		//}
-		);
+		// );
 	} else {
 		response.status(500).json();
 	}
 });
 
-// // GET :id
-// productController.get("/:id", async (request, response) => {
-// 	const { id } = request.params;
-// 	const product = await getProductById(id);
-// 	if (product.id) {
-// 		response.status(200).json({
-// 			success: true,
-// 			payload: product,
-// 		});
-// 	} else {
-// 		response.status(404).json({
-// 			success: false,
-// 			id: id,
-// 			payload: `not found: no product is listed with id=${id}`,
-// 		});
-// 	}
-// });
+// GET :id
+userController.get("/:id", async (request, response) => {
+	const { id } = request.params;
+	const data = await getUserById(id);
+	if (product.id) {
+		response.status(200).json({
+			success: true,
+			payload: data,
+		});
+	} else {
+		response.status(404).json({
+			success: false,
+			id: id,
+			payload: `not found: no user is listed with id=${id}`,
+		});
+	}
+});
 
 // // POST
 // productController.post("/", async (request, response) => {

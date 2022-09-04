@@ -49,6 +49,7 @@ CREATE TABLE public.products
     name character varying(100) NOT NULL,
     price real NOT NULL,
     description text NOT NULL,
+    product_tags text NOT NULL,
     category_id integer NOT NULL, 
     image_url character varying,
     in_stock boolean DEFAULT false NOT NULL,
@@ -58,8 +59,6 @@ CREATE TABLE public.products
 	  REFERENCES product_category(category_id)
       ON DELETE CASCADE
 );
-
-
 
 --
 --DROP TABLE IF EXISTS product_reviews;

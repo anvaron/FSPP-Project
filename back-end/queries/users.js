@@ -3,28 +3,29 @@ const db = require("../db/dbConfig.js");
 //GET all Users
 const getAllUsers = async () => {
 	try {
-		const query = await db.any("SELECT * FROM users");
+		const query = await db.any(`
+			SELECT user_id AS id, username, password, fullname, email 
+			FROM users`
+		);
 		return query;
 	} catch (error) {
 		return error;
 	}
 };
 
-// //GET one product by :id
-// const getProductById = async (id) => {
-// 	try {
-// 		const query = await db.one(`
-//       SELECT products.product_id as id, products.name, products.price, products.description, product_category.label, products.image_url, products.in_stock  
-//       FROM products 
-//       INNER JOIN product_category 
-//       ON product_category.category_id = products.category_id
-//       WHERE products.product_id=$1`, id
-//     );
-// 		return query;
-// 	} catch (error) {
-// 		return error;
-// 	}
-// };
+//GET one user by :id
+const getUserById = async (id) => {
+	try {
+		const query = await db.one(`
+      SELECT user_id as id, username, password, fullname, email  
+      FROM users
+      WHERE user_id=$1`, id
+    );
+		return query;
+	} catch (error) {
+		return error;
+	}
+};
 
 // // CREATE: one product
 // const createProduct = async (product) => {
@@ -78,7 +79,7 @@ const getAllUsers = async () => {
 
 module.exports = { 
 	getAllUsers, 
-	// getProductById, 
+	getUserById, 
 	// updateProduct, 
 	// createProduct, 
 	// deleteProduct 

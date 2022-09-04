@@ -1,30 +1,39 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-const API = process.env.REACT_APP_API_URL;
+// DEPENDENCIES
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-console.log(API);
-function App() {
-  const [days, setDays] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${API}/test`)
-      .then(
-        (response) => {
-          setDays(response.data);
-        },
-        (error) => console.log("get", error)
-      )
-      .catch((c) => console.warn("catch", c));
-  }, []);
+// COMPONENTS
+import NavBar from "./Components/NavBar";
+// import Project from "./Components/Project";
+// import ProjectTeam from "./Components/ProjectTeam";
+// import Footer from "./Components/Footer";
+
+// PAGES
+import Home  from "./Pages/Home";
+import Index from "./Pages/Index";
+import View  from "./Pages/View";
+// import Edit from "./Pages/Edit";
+// import New from "./Pages/New";
+// import NotFound from "./Pages/NotFound";
+
+export default function App() {
   return (
-    <div>
-      <ul>
-        {days.map((day) => (
-          <li key={day.name}>{day.name}</li>
-        ))}
-      </ul>
+    <div className="flex flex-col min-h-screen">
+      <Router>
+        <NavBar />
+        <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Index />} />
+          <Route path="/products/:id" element={<View />} />
+          {/* <Route path="/snacks/:id/edit" element={<Edit />} />
+          <Route path="/snacks/new" element={<New />} />
+          <Route path="/snacks/project" element={<Project />} />
+          <Route path="/snacks/team" element={<ProjectTeam />} />
+          <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+        </main>
+        {/* <Footer /> */}
+      </Router>
     </div>
   );
 }
-
-export default App;
