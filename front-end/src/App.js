@@ -2,18 +2,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // COMPONENTS
-import NavBar from "./Components/NavBar";
-// import Project from "./Components/Project";
-// import ProjectTeam from "./Components/ProjectTeam";
-// import Footer from "./Components/Footer";
+import NavBar from "./components/NavBar";
+//import Register from "./components/Register";
+//import ProductForm from "./components/ProductNewForm";
+// import ProjectTeam from "./components/ProjectTeam";
+// import Footer from "./components/Footer";
 
 // PAGES
-import Home  from "./Pages/Home";
-import Index from "./Pages/Index";
-import View  from "./Pages/View";
-// import Edit from "./Pages/Edit";
-// import New from "./Pages/New";
-// import NotFound from "./Pages/NotFound";
+//import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
+import Home  from "./pages/Home";
+import Index from "./pages/Index";
+import View  from "./pages/View";
+import Edit from "./pages/Edit";
+import New from "./pages/New";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -23,13 +27,19 @@ export default function App() {
         <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/products" element={<Index />} />
+          <Route path="/category/:id" element={<Index />} />
           <Route path="/products/:id" element={<View />} />
-          {/* <Route path="/snacks/:id/edit" element={<Edit />} />
-          <Route path="/snacks/new" element={<New />} />
+          <Route path="/reviews/:id" element={<View />} />
+          <Route path="/products/new" element={<New />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/products/:id/edit" element={<Edit />} />
+          {/*
           <Route path="/snacks/project" element={<Project />} />
           <Route path="/snacks/team" element={<ProjectTeam />} />
-          <Route path="*" element={<NotFound />} /> */}
+           */}
         </Routes>
         </main>
         {/* <Footer /> */}

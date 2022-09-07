@@ -16,18 +16,18 @@ const userController = express();
 userController.get("/", async (request, response) => {
 	const data = await getAllUsers();
 	if (data[0]) {
-	// 	response.status(200).json(
-			response.set('Access-Control-Expose-Headers', 'X-Total-Count'),
-			response.set('Content-Range', `users 0-10/${data.length}`);
-			response.set('Access-Control-Expose-Headers', 'Content-Range');
-      response.set('X-Total-Count', data.length),
-      response.status(200).json(data)
+		response.status(200).json(
+			// response.set('Access-Control-Expose-Headers', 'X-Total-Count'),
+			// response.set('Content-Range', `users 0-10/${data.length}`);
+			// response.set('Access-Control-Expose-Headers', 'Content-Range');
+      // response.set('X-Total-Count', data.length),
+      // response.status(200).json(data)
 			//data
-		//{
-			// success: true,
-			// payload: data,
-		//}
-		// );
+		{
+			success: true,
+			payload: data,
+		}
+		);
 	} else {
 		response.status(500).json();
 	}
@@ -52,17 +52,17 @@ userController.get("/:id", async (request, response) => {
 });
 
 // // POST
-// productController.post("/", async (request, response) => {
-// 	try {
-// 		const product = await createProduct(request.body);
-// 		response.json({
-// 			success: true,
-// 			payload: product,
-// 		});
-// 	} catch (error) {
-// 		return error;
-// 	}
-// });
+userController.post("/", async (request, response) => {
+	try {
+		const product = await createProduct(request.body);
+		response.json({
+			success: true,
+			payload: product,
+		});
+	} catch (error) {
+		return error;
+	}
+});
 
 // // PUT
 // productController.put("/:id", async (request, response) => {

@@ -1,79 +1,297 @@
 \c ecommerce_dev;
 
-INSERT INTO product_category (category_id, label) 
-VALUES (1, 'Dog Food');
-INSERT INTO product_category (category_id, label) 
-VALUES (2, 'Cat Food');
 
--- Seed data for products table 
-INSERT INTO products (product_id, name, price, description, product_tags, category_id, image_url, in_stock) 
+INSERT INTO product_category (
+  name, description) 
 VALUES (
-  1, 
-  'Wild-Caught Salmon & Ancient Grains Dry Dog Food', 
-  25.98, 
-  'This delicious recipe is made with real beef and other high-quality ingredients, giving him a wholesome meal option that you can both feel good about. With 23 essential vitamins and minerals in every serving, this dry dog food helps support your dog`s overall health and wellness.',
-  'Wild-Caught Pacific Salmon, Oats, Ocean Whitefish Meal, Sorghum',
-  1, 
-  'https://cdn.shopify.com/s/files/1/0016/2509/6305/products/PDP_AGDog_SALMON_01_Hero_548x768_crop_center.png?v=1636655528',
+  'Electronics', 
+  'Electronic items'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Home', 
+  'Everything for decoration and home improvements'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Clothing', 
+  'Clothing trends'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Baby', 
+  'Everything for baby care'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Hobbies', 
+  'Everything for hobbies'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Vehicles', 
+  'Everything for vehicles'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Sports', 
+  'Everything for Sports and activities'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Collectibles', 
+  'Everything for Collectibles'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Beauty', 
+  'Everything for Beauty'
+);
+INSERT INTO product_category (
+  name, description) 
+VALUES (
+  'Pets', 
+  'Everything for Our Pets'
+);
+
+-- -- Seed data for products table 
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Morpilot Dog Carrier', 
+  '32.98', 
+  'Like new. Used once. In good condition. From smoke free home',
+  'Used',
+  'Pet Supplies',
+  10, 
+  'http://img.dummy-image-generator.com/sport/dummy-600x600-Basketball.jpg',
+  true,
   true
 );
-INSERT INTO products (product_id, name, price, description, product_tags, category_id, image_url, in_stock) 
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
 VALUES (
-  2, 
-  'Surf & Turf Freeze Dried Raw Dog Food', 
-  12.98, 
-  'This delicious kitty kibble is loaded with protein to encourage healthy muscles, essential fatty acids to help support healthy skin and coat, and a crunchy texture to keep her teeth clean.',
-  'Wild-Caught Pacific Salmon, Oats, Ocean Whitefish Meal, Sorghum',
+  'AirPod Pro bods', 
+  '60', 
+  'New. Sealed package.',
+  'New',
+  'Audio',
   1, 
-  'https://cdn.shopify.com/s/files/1/0016/2509/6305/products/PDP_FDR_SURF_01_Hero_2b6e4c33-9db8-499e-9234-37012f59d3a9_548x768_crop_center.png?v=1636949721',
+  'https://fakeimg.pl/600x600/',
+  true,
   true
 );
-INSERT INTO products (product_id, name, price, description, product_tags, category_id, image_url, in_stock) 
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
 VALUES (
+  'Nike men T-shirt Sport', 
+  '60', 
+  'Nike men shoes size M - Sealed box',
+  'New',
+  'Fashion',
   3, 
-  'Wild-Caught Salmon Dry Cat Food', 
-  28.99, 
-  'This flavorful fishy kibble helps support healthy skin & coat and is a terrific source of Omega 3 fatty acids and DHA, thanks to a mix of Ocean Wise® approved wild-caught salmon and functional ingredients.',
-  'Wild-Caught Pacific Salmon, Oats, Ocean Whitefish Meal, Sorghum',
-  2, 
-  'https://cdn.shopify.com/s/files/1/0016/2509/6305/products/PDP_Cat_SALMON_01_Hero_548x768_crop_center.png?v=1636655539',
+  'https://fakeimg.pl/600x600/',
+  true,
   true
 );
-INSERT INTO products (product_id, name, price, description, product_tags, category_id, image_url, in_stock) 
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
 VALUES (
-  4, 
-  'Harvest Chicken & Ancient Grains Dry Dog Food', 
-  19.99, 
-  'This hearty kibble is a great nutrient-dense source of energy, thanks to a carefully made blend of humanely raised chicken and ancient grains, such as steel-cut oats and quinoa — not to mention added superfoods.',
-  'Wild-Caught Pacific Salmon, Oats, Ocean Whitefish Meal, Sorghum',
+  'Nike men shoes', 
+  '80', 
+  'Nike men shoes size 9 - Sealed box',
+  'New',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Macbook Pro', 
+  '500', 
+  'Macbook Pro for graphic design, coding - Sealed box',
+  'New',
+  'PC, Laptops',
   1, 
-  'https://cdn.shopify.com/s/files/1/0016/2509/6305/products/PDP_AGDog_CHICKEN_01_Hero_548x768_crop_center.png?v=1636655029',
-  false
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Nike men shoes', 
+  '80', 
+  'Nike men shoes size 9 - Sealed box',
+  'New',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Dining Table Like New', 
+  '300', 
+  'Dining Table Like New - Slight used',
+  'New',
+  'Furniture',
+  4, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Nike kids shoes', 
+  '80', 
+  'Nike men shoes size 5 - Sealed box',
+  'New',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Nike men shoes', 
+  '80', 
+  'Nike men shoes size 8 - Once Used',
+  'Used',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Nike men shoes', 
+  '80', 
+  'Nike men shoes size 9 - Sealed box',
+  'New',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Adidas women shoes', 
+  '80', 
+  'Adidas men shoes size 6 - Sealed box',
+  'New',
+  'Sneakers',
+  3, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Smartwatch FX200', 
+  '100', 
+  'Smartwatch FX200 - Sealed box',
+  'New',
+  'Gadgets',
+  1, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Graco car seat Used', 
+  '120', 
+  'Great condition, used a few month, fully functional. Sell as it condition, no return or refund. Photo showed the actual item, not from internet.',
+  'New',
+  'Car Seats',
+  4, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  '2018 Mercedes-Benz GLC', 
+  '47,000', 
+  'Air Conditioning, Climate Control, Dual Zone Climate Control, Cruise Control, Tinted Windows, Power Steering, Power Windows, Power Door Locks, Power Mirrors, Leather Steering Wheel, Leather Shifter, Power Drivers Seat, Power Passenger Seat, Memory Seat Position, Heated Seat, Clock, Tachometer, ',
+  'Used',
+  'Luxury SUV',
+  1, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  '2015 BMW X5', 
+  '23,895', 
+  '2015 BMW X5 One owner - like new ',
+  'Used',
+  'Cars',
+  6, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'Electric Guitar', 
+  '150', 
+  'Electric guitar with gig bag - like new Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'Used',
+  'Musical Instruments',
+  5, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  '2012 Porsche Cayenne', 
+  '29,895', 
+  '2012 Porsche Cayenne, One owner - like new ',
+  'Used',
+  'SUV',
+  6, 
+  'https://fakeimg.pl/600x600/',
+  true,
+  true
 );
 
-INSERT INTO users (password, email, fullname, username, google_id, roles, address, city, state, country) 
+
+
+INSERT INTO users (password, email, fullname, username, roles, address, city, state, country) 
 VALUES (
   '123456', 
   'anvaron@gmail.com',
   'Andres Varon',
   'admin',
-  '001',
   '{admin}',
   '1337 Dev St NY',
   'NYC',
   'NY',
   'USA'
 );
-INSERT INTO users (password, email, fullname, username, google_id, roles, address, city, state, country) 
+INSERT INTO users (password, email, fullname, username, roles, address, city, state, country) 
 VALUES (
   'test', 
   'johndoe@gmail.com',
   'John Doe',
   'jdoe',
-  '002',
   '{customer}',
   '244 44th Boulevard Av NY',
   'NYC',
   'NY',
   'USA'
 );
+

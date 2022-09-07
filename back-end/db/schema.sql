@@ -10,9 +10,8 @@ CREATE TABLE users
     user_id SERIAL NOT NULL,
     password character varying(200),
     email character varying(100) UNIQUE NOT NULL,
-    fullname character varying(100) NOT NULL,
+    fullname character varying(100),
     username character varying(50) UNIQUE NOT NULL,
-    google_id character varying(100) UNIQUE,
     roles character varying(10)[] DEFAULT '{customer}'::character varying[] NOT NULL,
     address character varying(200),
     city character varying(100),
@@ -24,20 +23,22 @@ CREATE TABLE users
 
 --
 --DROP TABLE IF EXISTS tokens;
-CREATE TABLE public.tokens
-(
-    id SERIAL NOT NULL,
-    email character varying NOT NULL,
-    token character varying NOT NULL,
-    used boolean DEFAULT false NOT NULL,
-    expiration timestamp without time zone,
-    PRIMARY KEY (id)
-);
+-- CREATE TABLE public.tokens
+-- (
+--     id SERIAL NOT NULL,
+--     email character varying NOT NULL,
+--     token character varying NOT NULL,
+--     used boolean DEFAULT false NOT NULL,
+--     expiration timestamp without time zone,
+--     PRIMARY KEY (id)
+-- );
 
 CREATE TABLE public.product_category
 (
     category_id SERIAL NOT NULL,
-    label character varying(10) NOT NULL,
+    name character varying(50) NOT NULL,
+    description text NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
     PRIMARY KEY (category_id)
 );
 
@@ -47,12 +48,14 @@ CREATE TABLE public.products
 (
     product_id SERIAL NOT NULL,
     name character varying(100) NOT NULL,
-    price real NOT NULL,
+    price text NOT NULL,
     description text NOT NULL,
-    product_tags text NOT NULL,
+    condition character varying(100) NOT NULL,
+    product_tags text,
     category_id integer NOT NULL, 
     image_url character varying,
     in_stock boolean DEFAULT false NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
     PRIMARY KEY (product_id),
     CONSTRAINT fk_category
       FOREIGN KEY(category_id) 
@@ -64,12 +67,12 @@ CREATE TABLE public.products
 --DROP TABLE IF EXISTS product_reviews;
 CREATE TABLE public.product_reviews
 (
+    id SERIAL NOT NULL,
     user_id integer NOT NULL,
     content text NOT NULL,
-    rating integer NOT NULL,
+    rating integer,
     product_id integer NOT NULL,
-    date date NOT NULL,
-    id integer NOT NULL,
+    date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, product_id)
 );
 

@@ -1,3 +1,6 @@
+import { CartProvider } from "../../front-end/src/context/CartContext";
+import { UserProvider } from "../../front-end/src/context/UserContext";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -6,7 +9,11 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <UserProvider> */}
+      <CartProvider>
+        <App />
+      </CartProvider>  
+    {/* </UserProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -13,14 +13,17 @@ export default function Product({ product }) {
   return (
     <div class="w-full h-90 overflow-hidden shadow-lg rounded-lg cursor-pointer m-auto bg-white">
       
-      {/* <a href="#" class="w-full block h-full "> */}
+      <Link
+        to={`/products/${product.id}`}
+        className="mr-5 text-white hover:text-gray-200 text-xl font-bold"
+      >
       <div class="w-full relative">
         <img 
           src={product.image_url} 
           alt={product.name}
-          class="w-5/12 mx-auto my-6"
+          class="w-full mx-auto my-0"
         />
-        <p className="absolute top-2 right-4">
+        <p className="absolute top-5 right-4">
           {product.in_stock 
             ?
             <span className="p-2 bg-teal-600 text-white text-md font-bold rounded-sm">In Stock</span>
@@ -33,29 +36,35 @@ export default function Product({ product }) {
       </div>
         <div class="bg-white w-full p-4">
           
-          <p class="text-teal-600 text-md font-bold">
+          <p class="text-teal-600 text-sm font-bold">
             <span>{product.category}</span>
           </p>
-          <p class="text-gray-600 text-xl font-bold mb-2">
+          <p class="text-gray-400 text-xl font-bold mb-0">
             {product.name}
           </p>
-          <p class="text-gray-900 text-2xl font-medium mb-2">
+          <p class="text-gray-900 text-3xl font-bold mb-2">
             ${product.price} 
           </p>
-          <p class="text-gray-400 font-light text-md">
-          {product.product_tags}  
+          <p class="text-gray-400 font-light text-xs">
+          {(product.product_tags) 
+          ?
+          <span class="px-4 py-1  text-base rounded-full text-white bg-blue-800 ">
+            {product.product_tags}
+          </span>
+          : null
+          }
           </p>
         </div>
-        
+        </Link>
       {/* </a> */}
-      <div className="w-full mt-6 justify-center items-center text-center">
+      {/* <div className="w-full mt-0 justify-center items-center text-center">
         <button 
           onClick={() => handleClick()}
           type="button" 
           className="py-4 px-4 bg-gray-800 hover:bg-gray-900 focus:ring-gray-800 focus:ring-offset-gray-800 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm ">
-          View Product 
+          View details 
         </button>
-      </div>
+      </div> */}
     </div>
     // <div className="w-full 
                     

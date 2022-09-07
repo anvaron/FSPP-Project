@@ -1,6 +1,6 @@
-import ProductDetails from "../Components/ProductDetails";
+import ProductDetails from "../components/ProductDetails";
 
-export default function Show() {
+export default function View() {
   return (
     <div className="h-full sm:flex flex-wrap justify-center items-center text-center">
       <div className="header w-full items-end justify-between p-12">
