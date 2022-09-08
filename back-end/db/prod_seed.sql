@@ -1,4 +1,4 @@
-\c ecommerce_dev;
+\c ddna8l2vuf44cn;
 
 
 INSERT INTO product_category (
