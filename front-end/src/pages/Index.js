@@ -1,14 +1,15 @@
 import Products from "../components/Products";
 import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
-
+import NavCategories from "../components/NavCategories";
 
 export default function Index() {
 
   const { id } = useParams();
-  //console.log('data', id)
+  console.log('category', id)
 
   return (
     <div className="">
+      <NavCategories />
       <div className="header flex items-end justify-between py-5 bg-gray-100">
         <div className="w-full title text-center">
           <p className="mb-4 text-2xl font-extrabold text-gray-900">
@@ -19,7 +20,7 @@ export default function Index() {
           </p>
         </div>
       </div>
-      <Products category={id}/>
+      <Products categoryId={id}/>
     </div>
   );
 }

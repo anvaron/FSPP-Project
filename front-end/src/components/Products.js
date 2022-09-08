@@ -8,20 +8,20 @@ const API = process.env.REACT_APP_API_URL;
 
 export default function Products( props ) {
   const [products, setProducts] = useState([]);
-  const { category } = props;
-  
+  const { categoryId } = props;
+  console.log(categoryId)
   let route = '';
-  (category === undefined) 
+  (categoryId === undefined) 
   ?
     route = `products`
   :
-    route = `products/category/${category}`;
+    route = `products/${categoryId}`;
   
 
   const getData = async () => {
   
     await axios
-      .get(`${API}/${route}`)
+      .get(`${API}/products`)
       .then(({ data }) => setProducts(data.payload))
       .catch((error) => console.log(error));
   };

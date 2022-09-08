@@ -30,12 +30,12 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/products" element={<Index />} />
-          <Route path="/category/:id" element={<Index />} />
+          {/* <Route path="/products/:categoryId" element={<Index />} /> */}
           <Route path="/products/:id" element={<View />} />
-          <Route path="/reviews/:id" element={<View />} />
+          {/* <Route path="/products/:id/reviews" element={<View />} /> */}
           <Route path="/products/new" element={<New />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/products/:id/edit" element={<Edit />} />
+          <Route path="*" element={<NotFound />} />
           {/*
           <Route path="/snacks/project" element={<Project />} />
           <Route path="/snacks/team" element={<ProjectTeam />} />

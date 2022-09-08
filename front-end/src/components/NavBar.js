@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
-//import { useCart } from "../context/CartContext";
+import NavCategories from "./NavCategories";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -104,19 +104,6 @@ export default function NavBar() {
             Cart: {(cartTotal === undefined) ? '0' : cartTotal} 
           </button> */}
         </div>
-      </div>
-
-      <div class="w-full flex flex-wrap items-center bg-gray-600 hidden md:block">
-      <div className="w-10/12 mx-auto flex flex-wrap py-2 flex-col md:flex-row items-center gap-4">
-        {categories.map((category) => (
-          <button 
-            className=" px-4 py-2 text-md font-semibold text-gray-100 transition ease-in duration-200 rounded-full hover:bg-gray-800 hover:text-white border-1 border-gray-200 focus:outline-none"
-            onClick={() => handleClick(category.id)}
-          >
-            {category.name}
-          </button>
-        ))}   
-      </div>
       </div>
     </header>
   );

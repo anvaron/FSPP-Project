@@ -4,7 +4,7 @@ PERN Stack Project
 
 ## Important Links
 
-- [Deployed API Server](https://herokuapp.com)
+- [Deployed API Server](https://fspp-project-api.herokuapp.com)
 - [Deployed Frontend](https://herokuapp.com)
 - [Trello Board](https://trello.com/b/Bcj7uhR4/pern-stack-project)
 - [ERD](https://)
