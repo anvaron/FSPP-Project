@@ -23,14 +23,14 @@ app.get("/", async (request, response) => {
 
 app.use("/products", productController);
 //app.use("/products/category", productByCatController);
-app.use("/reviews", reviewController);
+app.use("/products/:id/reviews", reviewController);
 app.use("/categories", categoryController);
 app.use("/users", userController);
 app.use("/auth/signup", authController);
 //app.use("/signin", authController);
 
 app.get("*", (request, response) => {
-	response.status(404).send("Route error.");
+	response.status(404).send("Route error!.");
 });
 
 // EXPORT

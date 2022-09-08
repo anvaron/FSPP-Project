@@ -1,108 +1,75 @@
-//
 const express = require("express");
 
+const reviewController = express.Router({ mergeParams: true });
+
 const {
-	getReviews,
-	getReviewsByProduct,
-	createReview,
-  
+  getAllReviews,
+  getReviewsByProduct,
+  createReview,
+	updateReview,
+  deleteReview
 } = require("../queries/reviews");
 
-//const { nameFormatter } = require("../validations/snacksCheck");
-const reviewController = express();
-
-// GET All products
-reviewController.get("/", async (request, response) => {
-	const data = await getReviews();
-	if (data[0]) {
-		response.status(200).json({
-			success: true,
-			payload: data,
-		});
-	} else {
-		response.status(500).json();
-	}
+// INDEX
+reviewController.get("/", async (req, res) => {
+  const { id } = req.params;
+	console.log('id reviewControl:', id)
+  const data = await getAllReviews(id);
+  try {
+    if (data[0]) {
+      res.status(200).json(data);
+    } else {
+      res.status(200).json([]);
+    }
+  } catch (error) {
+    res.status(404).json({ sucess: false });
+  }
 });
 
-// GET products by id
-reviewController.get("/:id", async (request, response) => {
-	const { id } = request.params;
-	const data = await getReviewsByProduct(id);
-	console.log(data);
-	if (data[0]) {
-		response.status(200).json({
-			success: true,
-			payload: data,
-		});
-	} else {
-		response.status(500).json();
-	}
-	// if (review.id) {
-	// 	response.status(200).json({
-	// 		success: true,
-	// 		payload: review,
-	// 	});
-	// } else {
-	// 	response.status(404).json({
-	// 		success: false,
-	// 		id: id,
-	// 		payload: `not found: no reviews are listed with product id=${id}`,
-	// 	});
-	// }
+// SHOW
+reviewController.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const review = await getReviewsByProduct(id);
+  console.log(review);
+  if (review.received !== 0) {
+    res.json(review);
+  } else {
+    res.status(404).json({ error: "not found review with given id" });
+  }
 });
 
-// POST create entry
-reviewController.post("/", async (request, response) => {
-	try {
-		const data = await createReview(request.body);
-		//console.log(data)
-		response.json({
-			success: true,
-			payload: data,
-		});
-	} catch (error) {
-		return error;
-	}
+//POST
+reviewController.post("/", async (req, res) => {
+  try {
+    const review = await createReview(req.body);
+    res.status(200).json(review);
+  } catch (error) {
+    res.status(404).json("Error: Review cannot posted");
+  }
 });
 
-// PUT update entry
-// productController.put("/:id", async (request, response) => {
-// 	try {
-// 		const { id } = request.params;
-// 		console.log(id)
-// 		console.log(request.body)
-// 		const product = await updateProductById(id, request.body);
-// 		response.json({
-// 			success: true,
-// 			payload: product,
-// 		});
-// 	} catch (error) {
-// 		return error;
-// 	}
-// });
+// UPDATE
+reviewController.put("/:id", async (req, res) => {
+  const { id } = req.params;
+	console.log('put:', id)
+  try {
+    const data = await updateReview(id, req.body);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json("Review not found");
+  }
+});
 
 // DELETE
-// productController.delete("/:id", async (request, response) => {
-// 	const { id } = request.params;
-// 	const product = await deleteProductById(id);
-// 	if (product) {
-// 		if (product.id) {
-// 			response.status(200).json({
-// 				success: true,
-// 				payload: product,
-// 			});
-// 		} else {
-// 			response.status(404).json({
-// 				success: false,
-// 				payload: product,
-// 			});
-// 		}
-// 	} else {
-// 		response.status(500).json({
-// 			success: false,
-// 			payload: product,
-// 		});
-// 	}
-// });
+reviewController.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const data = await deleteReview(id);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json({ error: "Review not found" });
+  }
+});
 
 module.exports = reviewController;

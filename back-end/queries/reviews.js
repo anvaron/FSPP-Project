@@ -1,14 +1,12 @@
 const db = require("../db/dbConfig.js");
 
 //GET all reviews
-const getReviews = async () => {
+const getAllReviews = async (id) => {
 	try {
 		const query = await db.any(`
-			SELECT users.username, content, rating 
+			SELECT username, content, rating, date
 			FROM product_reviews
-			INNER JOIN users 
-      ON product_reviews.user_id = users.user_id
-			ORDER BY id DESC`
+			WHERE product_id=$1`, id
 		);
 		return query;
 	} catch (error) {
@@ -36,16 +34,12 @@ const getReviewsByProduct = async (id) => {
 // CREATE: one product
 const createReview = async (review) => {
 	try {
-		const { user_id, content, rating, product_id } = review;
+		const { username, content, rating, product_id } = review;
 		const query = await db.one(`
-			INSERT INTO product_reviews (
-        user_id, content, rating, product_id
-      ) 
-      VALUES (
-        $1, $2, $3, $4
-      ) 
+			INSERT INTO product_reviews ( username, content, rating, product_id ) 
+      VALUES ( $1, $2, $3, $4 ) 
       RETURNING *`,
-			[user_id, content, rating, product_id]
+			[username, content, rating, product_id]
 		);
     return query;
 	} catch (error) {
@@ -53,42 +47,43 @@ const createReview = async (review) => {
 	}
 };
 
-// UPDATE: one product by :id
-const updateProductById = async (id, product) => {
-	const { name, price, description, category_id, image_url, in_stock, product_tags } = product;
-	
+// UPDATE: review by :id
+const updateReview = async (id, review) => {
+	console.log('id=', id)
+	console.log(id, review)
   try {
-		const query = await db.one(`
-			UPDATE products
-      SET name=$1, price=$2, description=$3, category_id=$4, image_url=$5, in_stock=$6, product_tags=$7
-      WHERE product_id=$8
-      RETURNING *`,
-			[name, price, description, category_id, image_url, in_stock, product_tags, id]
-		);
+    const query = await db.one(`
+      UPDATE product_reviews 
+			SET username=$1, content=$2, rating=$3 
+			WHERE review_id=$4 
+			RETURNING *`,
+      [review.username, review.content, review.rating, id]
+    );
 		console.log(query)
     return query;
-	} catch (error) {
-		return error;
-	}
+  } catch (error) {
+		console.log(error)
+    return error;
+  }
 };
 
-//DELETE one product by :id
+//DELETE review by :id
 const deleteReview = async (id) => {
 	try {
-		return await db.one(`
-      DELETE FROM products WHERE products.product_id=$1 
+		const query = await db.one(`
+      DELETE FROM product_reviews WHERE review_id=$1 
       RETURNING *`, id
     );
+		return query;
 	} catch (error) {
 		return error;
 	}
 };
 
 module.exports = { 
-	getReviews, 
+	getAllReviews, 
 	getReviewsByProduct,
-	// getProductsByCategory, 
-	// updateProductById, 
-	createReview, 
-	// deleteProductById 
+	createReview,
+	updateReview,
+	deleteReview
 };

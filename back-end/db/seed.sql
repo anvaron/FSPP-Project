@@ -295,3 +295,11 @@ VALUES (
   'USA'
 );
 
+INSERT INTO product_reviews (username, email, content, rating, product_id) 
+VALUES (
+  'John Doe', 
+  'johndoe@gmail.com',
+  'Great product',
+  2,
+  3
+);

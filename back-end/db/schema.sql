@@ -3,7 +3,6 @@ CREATE DATABASE ecommerce_dev;
 
 \c ecommerce_dev;
 
---
 --DROP TABLE IF EXISTS public.users;
 CREATE TABLE users
 (
@@ -21,28 +20,17 @@ CREATE TABLE users
     PRIMARY KEY (user_id)
 );
 
---
---DROP TABLE IF EXISTS tokens;
--- CREATE TABLE public.tokens
--- (
---     id SERIAL NOT NULL,
---     email character varying NOT NULL,
---     token character varying NOT NULL,
---     used boolean DEFAULT false NOT NULL,
---     expiration timestamp without time zone,
---     PRIMARY KEY (id)
--- );
-
 CREATE TABLE public.product_category
 (
     category_id SERIAL NOT NULL,
     name character varying(50) NOT NULL,
     description text NOT NULL,
     is_active boolean DEFAULT true NOT NULL,
+    icon text,
+    image character varying,
     PRIMARY KEY (category_id)
 );
 
---
 --DROP TABLE IF EXISTS products;
 CREATE TABLE public.products
 (
@@ -63,117 +51,24 @@ CREATE TABLE public.products
       ON DELETE CASCADE
 );
 
---
 --DROP TABLE IF EXISTS product_reviews;
 CREATE TABLE public.product_reviews
 (
-    id SERIAL NOT NULL,
-    user_id integer NOT NULL,
+    review_id SERIAL NOT NULL,
+    username text NOT NULL,
+    email character varying(100),
     content text NOT NULL,
-    rating integer,
+    rating integer, CHECK (rating >= 0 AND rating <= 5),
     product_id integer NOT NULL,
     date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, product_id)
-);
-
---DROP TABLE IF EXISTS cart;
-CREATE TABLE public.cart
-(
-    id SERIAL NOT NULL,
-    user_id integer UNIQUE NOT NULL,
-    PRIMARY KEY (id)
-);
-
---
---DROP TABLE IF EXISTS cart_item;
-CREATE TABLE public.cart_item
-(
-    id SERIAL NOT NULL,
-    cart_id integer NOT NULL,
-    product_id integer NOT NULL,
-    quantity integer NOT NULL CHECK (quantity > 0),
-    PRIMARY KEY (id),
-    UNIQUE (cart_id, product_id)
-);
-
---
---DROP TABLE IF EXISTS order_item;
-CREATE TABLE public.order_item
-(
-    id SERIAL NOT NULL,
-    order_id integer NOT NULL,
-    product_id integer NOT NULL,
-    quantity integer NOT NULL,
-    PRIMARY KEY (id)
-);
-
---
-CREATE TYPE "payment" AS ENUM (
-  'PAYSTACK',
-  'STRIPE'
-);
-
---
---DROP TABLE IF EXISTS orders;
-CREATE TABLE public.orders
-(
-    order_id SERIAL NOT NULL,
-    user_id integer NOT NULL,
-    status character varying(20) NOT NULL,
-    date timestamp without time zone DEFAULT CURRENT_DATE NOT NULL,
-    amount real,
-    total integer,
-    ref character varying(100),
-    payment_method payment,
-    PRIMARY KEY (order_id)
+    PRIMARY KEY (review_id)
 );
 
 --  *****************************
 --      C O N S T R A I N T S
 --  *****************************
 --
-ALTER TABLE public.cart
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (user_id)
-    ON DELETE SET NULL
-    NOT VALID;
-
 --
-ALTER TABLE public.cart_item
-    ADD FOREIGN KEY (cart_id)
-    REFERENCES public.cart (id)
-    ON DELETE CASCADE
-    NOT VALID;
-
---
-ALTER TABLE public.cart_item
-    ADD FOREIGN KEY (product_id)
-    REFERENCES public.products (product_id)
-    ON DELETE SET NULL
-    NOT VALID;
-
---
-ALTER TABLE public.order_item
-    ADD FOREIGN KEY (order_id)
-    REFERENCES public.orders (order_id)
-    ON DELETE CASCADE
-    NOT VALID;
-
---
-ALTER TABLE public.order_item
-    ADD FOREIGN KEY (product_id)
-    REFERENCES public.products (product_id)
-    ON DELETE SET NULL
-    NOT VALID;
-
---
-ALTER TABLE public.orders
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (user_id)
-    ON DELETE CASCADE
-    NOT VALID;
-
--- 
 -- ALTER TABLE public.products
 --     ADD FOREIGN KEY (category_id)
 --     REFERENCES public.product_category (category_id)
@@ -186,18 +81,3 @@ ALTER TABLE public.product_reviews
     REFERENCES public.products (product_id)
     ON DELETE SET NULL
     NOT VALID;
-
---
-ALTER TABLE public.product_reviews
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (user_id)
-    ON DELETE SET NULL
-    NOT VALID;
-
---
-CREATE UNIQUE INDEX users_unique_lower_email_idx
-    ON public.users (lower(email));
-
---
-CREATE UNIQUE INDEX users_unique_lower_username_idx
-    ON public.users (lower(username));
