@@ -15,7 +15,7 @@ const productController = express();
 
 // GET All products
 productController.get("/", async (request, response) => {
-	console.log('get')
+	console.log('no category')
 	const data = await getAllProducts();
 	if (data[0]) {
 		response.status(200).json({
@@ -28,19 +28,21 @@ productController.get("/", async (request, response) => {
 });
 
 // GET products by category
-productController.get("/", async (request, response) => {
-	//const { cat } = request.params;
-	console.log(request.params)
-	const data = await getProductsByCategory();
-	if (data[0]) {
-		response.status(200).json({
-			success: true,
-			payload: data,
-		});
-	} else {
-		response.status(500).json();
-	}
-});
+// productController.get("/:categoryId", async (request, response) => {
+// 	const { categoryId } = request.params;
+// 	console.log('category', categoryId)
+// 	//const { cat } = request.params;
+// 	//console.log(request.params)
+// 	const data = await getAllProducts();
+// 	if (data[0]) {
+// 		response.status(200).json({
+// 			success: true,
+// 			payload: data,
+// 		});
+// 	} else {
+// 		response.status(500).json();
+// 	}
+// });
 
 // GET products by id
 productController.get("/:id", async (request, response) => {

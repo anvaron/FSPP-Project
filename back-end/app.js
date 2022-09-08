@@ -22,7 +22,7 @@ app.get("/", async (request, response) => {
 });
 
 app.use("/products", productController);
-app.use("/category", productByCatController);
+//app.use("/products/category", productByCatController);
 app.use("/reviews", reviewController);
 app.use("/categories", categoryController);
 app.use("/users", userController);
