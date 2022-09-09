@@ -10,6 +10,7 @@ export default function ProductDetails() {
   const { addItem } = useCart();
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [favorites, setFavorites] = useState(0);
 
   const navigate = useNavigate();
   const API = process.env.REACT_APP_API_URL;
@@ -81,6 +82,26 @@ export default function ProductDetails() {
 
   const handleEdit = () => {
     navigate(`/products/${id}/edit`);
+  };
+
+  const handleAddFavorites = () => {
+    const favorites = {
+      id: product.id,
+      product: product.name,
+      price: product.price,
+    } 
+    localStorage.setItem(
+      'favorites', JSON.stringify(favorites)
+    );
+      setFavorites(localStorage.length)
+  };
+
+  const getTotalFavorites = () => {
+    for(let i=0; i<localStorage.length; i++) {
+      let key = localStorage.key(i);
+      alert(`${key}: ${localStorage.getItem(key)}`);
+    }
+    
   };
 
   // const handleSubmit = async (e) => {
@@ -250,17 +271,31 @@ export default function ProductDetails() {
                 </li>
                 <li className="flex flex-row">
                   <div className="select-none cursor-pointer flex flex-1 items-center p-4">
-                    <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                    </div>
+                    
                     <div className="flex-1 pl-1 mr-16">
                       <div className="font-medium text-left">
-                        Add to favorites
+                        <div class="w-7/12 flex items-center">
+                            <button 
+                              type="button" 
+                              class="w-full flex items-center border-l border-t border-b text-base font-medium rounded-l-md text-black bg-white hover:bg-gray-100 pl-2 pr-0 py-2"
+                              onClick={(e) => handleAddFavorites(e)} 
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="currentColor" viewBox="0 0 1792 1792">
+                                <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                </path>
+                              </svg>
+                              Add to favorites
+                            </button>
+                            <button type="button" class="w-16 border text-base font-medium rounded-r-md text-black bg-white hover:bg-gray-100 px-4 py-2">
+                              {favorites}
+                            </button>
+                        </div>
                       </div>
                     </div>
                     <div className="text-gray-600 text-xs">
                       <button 
                         type="button" 
-                        class="py-2 px-10 flex justify-center items-center bg-blue-400 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
+                        class="py-2 px-10 flex justify-center items-center bg-teal-400 hover:bg-teal-700 focus:ring-teal-500 focus:ring-offset-teal-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
                       >
                         Buy Now
                       </button>
