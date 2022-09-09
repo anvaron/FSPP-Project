@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Select from 'react-select';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function ProductNewForm() {
@@ -9,10 +10,10 @@ export default function ProductNewForm() {
   const API = process.env.REACT_APP_API_URL;
 
   const notify = () => {
-    toast('New item created successfully.');
+    toast('New Product created successfully.');
     setTimeout(() => {
       navigate(`/products`);
-    }, 3000);
+    }, 5000);
   }
 
   const [category, setCategory] = useState([]);
@@ -20,6 +21,7 @@ export default function ProductNewForm() {
     name: "",
     description: "",
     price: "",
+    condition: "",
     product_tags: "",
     category_id: "",
     image_url: "",
@@ -38,23 +40,24 @@ export default function ProductNewForm() {
   const createProduct = (product) => {
     axios
       .post(`${API}/products`, product)
-      .then(() => {
+      .then((response) => {
         //navigate(`/products`);
-        notify();
+        //console.log(response)
+        if (response.status === 200) {
+          {toast.success('New Product added to the system successfully!');
+          setTimeout(() => {
+            navigate(`/products`);
+          }, 3000);}
+        } else { 
+          toast.error('There was an error! Review your data and try again');
+          // setTimeout(() => {
+          //   navigate(`/products`);
+          // }, 5000);
+        }
       })
       .catch((error) => console.warn("catch", error));
   };
   
-  // const quantityOptions = () => {
-  //   let options = [];
-  //   for(let i=1; i<=10; i++) {
-  //     options.push({'value':i});
-  //   }
-  //   //console.log(product.price)
-  //   //setTotal(product.price);
-  //   return options;
-  // };
-
   // HANDLERS
   const handleTextChange = (event) => {
     setProduct({ ...product, [event.target.id]: event.target.value });
@@ -62,6 +65,12 @@ export default function ProductNewForm() {
 
   const handleChange = (event) => {
     setProduct({ ...product, [event.target.id]: event.target.value });
+  };
+
+  const handleSelectChange = (event) => {
+    console.log(event.label)
+    console.log(event.value)
+    setProduct({ ...product, condition: event.value });
   };
 
   const handleClick = () => {
@@ -74,25 +83,27 @@ export default function ProductNewForm() {
     await createProduct(product);
   };
 
-  
-  // const addToCart = async (e) => {
-  //   e.preventDefault();
-  //   await addItem(product, 1);
-  // };
+  const conditionOptions = [
+    { id: 0, value: 'used', label: 'Used' },
+    { id: 1, value: 'new', label: 'New' },
+  ]
 
   return (
-<div className="container">
-  <form class=" flex w-full  space-x-3">
-    <div class="w-full max-w-2xl p-10 m-auto mt-0 bg-white rounded-lg shadow ">
+<div className="w-full ">
+  <Toaster />
+  <form class="flex space-x-3">
+    <div class="w-full max-w-2xl p-10 m-auto mt-0 bg-white border rounded-lg shadow-lg ">
       <div class="grid max-w-xl grid-cols-2 gap-4 m-auto">
         <div class="col-span-2 ">
           <div class=" relative ">
-          {/* <label htmlFor="category_id" className="block mr-4 text-sm font-medium text-gray-700 leading-10">Category</label> */}
+            <label htmlFor="name" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Product Name
+            </label>
             <input 
               type="text" 
               id="name" 
               class=" rounded-md border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" 
-              placeholder="Product name"
+              placeholder=""
               value={product.name}
               onChange={handleTextChange}
               required
@@ -100,7 +111,9 @@ export default function ProductNewForm() {
           </div>
         </div>
         <div class="col-span-2">
-          <label class="text-gray-700" for="name"></label>
+          <label htmlFor="description" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+            Description
+          </label>
           <textarea 
             id="description"
             class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"  
@@ -114,9 +127,9 @@ export default function ProductNewForm() {
         </div>
         <div class="col-span-2 lg:col-span-1">
           <div class=" relative ">
-            {/* <label for="price" class="block text-sm font-medium text-gray-700">
-                Price
-            </label> */}
+            <label htmlFor="price" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Price
+            </label>
             <div class="relative rounded-md shadow-sm">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <span class="text-gray-500 sm:text-sm">
@@ -138,11 +151,35 @@ export default function ProductNewForm() {
         </div>
         <div class="col-span-2 lg:col-span-1">
           <div class=" relative ">
+            <label htmlFor="condition" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Condition
+            </label>
+            <select 
+              id="condition" 
+              name="condition" 
+              value={product.condition}
+              onChange={(e) => handleChange(e)}  
+              className="w-full py-2 px-4 rounded-md border-transparent bg-transparent border border-gray-300 text-gray-500 focus:border-gray-500 focus:ring-indigo-500 text-sm md:text-base"
+              required
+            >
+              <option key='-1' value=''>Select condition</option>
+              <option key={conditionOptions[0].id} value={conditionOptions[0].value}>{conditionOptions[0].label}</option>
+              <option key={conditionOptions[1].id} value={conditionOptions[1].value}>{conditionOptions[1].label}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-span-2 lg:col-span-1">
+        <div class=" relative ">
+            <label htmlFor="in_stock" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              In Stock
+            </label>
             <input 
-              type="text" 
+              type="number" 
               id="in_stock" 
               class=" rounded-md border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" 
-              placeholder="stock"
+              min="0"
+              max="100"
+              step="1"
               value={product.in_stock}
               onChange={handleTextChange}
               required
@@ -151,11 +188,14 @@ export default function ProductNewForm() {
         </div>
         <div class="col-span-2 ">
           <div class=" relative ">
+            <label htmlFor="product_tags" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Product tags
+            </label>
             <input 
               type="text" 
               id="product_tags" 
               class="rounded-md border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" 
-              placeholder="Product tags"
+              placeholder="e.g: Sneakers, Audio gadgets, Home decoration..."
               value={product.product_tags}
               onChange={handleTextChange}
               required
@@ -164,16 +204,18 @@ export default function ProductNewForm() {
         </div>
         <div class="col-span-2 ">
           <div class=" relative ">
-            {/* <label htmlFor="category_id" className="block mr-4 text-sm font-medium text-gray-700 leading-10">Category</label> */}
+            <label htmlFor="category_id" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Category
+            </label>
             <select 
               id="category_id" 
               name="category_id" 
               value={product.category_id}
               onChange={(e) => handleChange(e)}  
-              className="w-full py-2 px-4 rounded-md border-transparent bg-transparent border border-gray-300 text-gray-500 focus:border-gray-500 focus:ring-indigo-500 sm:text-sm text-md"
+              className="w-full py-2 px-4 rounded-md border-transparent bg-transparent border border-gray-300 text-gray-500 focus:border-gray-500 focus:ring-indigo-500 text-sm md:text-base"
               required
             >
-              <option key='0' value=''>Select category</option>
+              <option key='-1' value=''>Select category</option>
               {category.map((option) => (
                 <option key={option.id} value={option.id}>{option.name}</option>
               ))}  
@@ -213,6 +255,9 @@ export default function ProductNewForm() {
         </div> */}
         <div class="col-span-2 ">
           <div class=" relative ">
+            <label htmlFor="image_url" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
+              Images
+            </label>  
             <input 
               type="text" 
               id="image_url" 

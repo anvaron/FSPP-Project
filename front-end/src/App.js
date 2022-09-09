@@ -4,16 +4,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // COMPONENTS
 import NavBar from "./components/NavBar";
 //import Register from "./components/Register";
-//import ProductForm from "./components/ProductNewForm";
-// import ProjectTeam from "./components/ProjectTeam";
 // import Footer from "./components/Footer";
 
 // PAGES
-//import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Home  from "./pages/Home";
 import Index from "./pages/Index";
+import IndexCategories from "./pages/IndexCategories";
 import View  from "./pages/View";
 import Edit from "./pages/Edit";
 import New from "./pages/New";
@@ -30,16 +28,13 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/products" element={<Index />} />
+          <Route path="/categories" element={<IndexCategories />} />
           {/* <Route path="/products/:categoryId" element={<Index />} /> */}
           <Route path="/products/:id" element={<View />} />
           {/* <Route path="/products/:id/reviews" element={<View />} /> */}
           <Route path="/products/new" element={<New />} />
           <Route path="/products/:id/edit" element={<Edit />} />
           <Route path="*" element={<NotFound />} />
-          {/*
-          <Route path="/snacks/project" element={<Project />} />
-          <Route path="/snacks/team" element={<ProjectTeam />} />
-           */}
         </Routes>
         </main>
         {/* <Footer /> */}

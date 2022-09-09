@@ -5,20 +5,17 @@ import ReactStars from "react-rating-stars-component";
 export default function Review({ review, handleDelete, handleSubmit }) {
   const [viewEditForm, toggleEditForm] = useState(false);
 
-  const toggleView = () => {
-    toggleEditForm(!viewEditForm);
+  const handleEdit = () => {
+    // Clone data, Fill review form
+    // Create editable elements
   };
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  const date = new Date(review.date).toLocaleDateString('en-us', options);
 
   return (
     <div>
       <div className="container">
-        {(viewEditForm) ? (
-          <ReviewsForm
-            reviewData={review}
-            toggleView={toggleView}
-            handleSubmit={handleSubmit}
-          />
-        ) : (
+        
           <div class="w-8/12 mx-auto bg-white rounded-lg p-4 mb-6 shadow sm:inline-block relative">
             <div class="flex absolute top-2 right-2">
               <button
@@ -34,14 +31,9 @@ export default function Review({ review, handleDelete, handleSubmit }) {
               <button
                 type="button"
                 className="px-2 py-2 text-base bg-gray-100 hover:bg-gray-200 transition ease-in duration-300" 
-                onClick={toggleView}
+                onClick={handleEdit}
               >
-                {!viewEditForm 
-                ? 
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mx-auto object-center" fill="#333333" viewBox="0 0 24 24"><path d="M18.31 2.828l2.862 2.862-15.032 15.032-3.583.722.723-3.585 15.03-15.031zm0-2.828l-16.872 16.872-1.438 7.128 7.127-1.437 16.873-16.874-5.69-5.689zm-.021 5.004l-12.728 12.728.707.708 12.728-12.728-.707-.708z"/></svg>
-                :
-                null
-                }
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mx-auto object-center" fill="#333333" viewBox="0 0 24 24"><path d="M18.31 2.828l2.862 2.862-15.032 15.032-3.583.722.723-3.585 15.03-15.031zm0-2.828l-16.872 16.872-1.438 7.128 7.127-1.437 16.873-16.874-5.69-5.689zm-.021 5.004l-12.728 12.728.707.708 12.728-12.728-.707-.708z"/></svg>
               </button>
             </div>
             <div class="flex items-start text-left">
@@ -58,11 +50,11 @@ export default function Review({ review, handleDelete, handleSubmit }) {
               </div>
               <div class="w-full ml-6">
                 <p class="flex items-baseline">
-                  <span class="text-gray-600  font-bold">
+                  <span class="text-gray-600 font-bold" contentEditable='true'>
                   {review.username}
                   </span>
                   <span class="text-gray-500 ml-2 text-sm">
-                    2 months ago
+                    {date}  
                   </span>
                 </p>
                 <div class="flex items-center mt-1">
@@ -82,29 +74,8 @@ export default function Review({ review, handleDelete, handleSubmit }) {
               </div>
             </div>
           </div>
-
-          
-            /* <Rating
-              name="read-only"
-              value={Number(review.rating)}
-              readOnly
-              size="small"
-            /> */
-        )}
+        
       </div>
-      {/* <Box marginTop={2} marginBottom={2}>
-        <ButtonGroup
-          variant="contained"
-          aria-label="outlined primary button group"
-          size="small"
-        >
-          <Button onClick={toggleView}>
-            {viewEditForm ? "Nevermind" : "Edit"}
-          </Button>
-          <Button onClick={() => handleDelete(review.review_id)}>Delete</Button>
-        </ButtonGroup>
-        <hr />
-      </Box> */}
     </div>
   );
 }

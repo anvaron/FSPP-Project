@@ -1,15 +1,14 @@
-import Products from "../components/Products";
+import Categories from "../components/Categories";
 import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import NavCategories from "../components/NavCategories";
 
-export default function Index() {
+export default function IndexCategories() {
 
   const { id } = useParams();
   console.log('category', id)
 
   return (
     <div className="">
-      <NavCategories />
       <div className="header w-full items-end justify-between p-12">
         <div className="container hidden md:block">
           <nav class="flex " aria-label="Breadcrumb">
@@ -27,7 +26,7 @@ export default function Index() {
                   <div class="flex items-center">
                     <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
                     <span class="text-gray-400 ml-1 md:ml-2 text-md font-medium">
-                      Products
+                      Categories
                     </span>
                   </div>
                 </li>
@@ -35,15 +34,15 @@ export default function Index() {
           </nav>
         </div>
         <div className="w-full title text-center">
-          <p className="mb-4 text-2xl font-extrabold text-gray-900">
-            
+          <p className="mb-0 text-3xl font-extrabold text-gray-900">
+            Index of Categories
           </p>
           <p className="text-2xl font-bold text-gray-600">
              
           </p>
         </div>
       </div>
-      <Products categoryId={id}/>
+      <Categories />
     </div>
   );
 }

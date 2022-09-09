@@ -66,7 +66,7 @@ export default function NavBar() {
             Buy
           </Link>
           <Link
-            to="/products/category/1"
+            to="/categories"
             className="mr-5 text-white hover:text-gray-200 text-2xl font-bold"
           >
             Categories

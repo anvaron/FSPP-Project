@@ -6,18 +6,10 @@ import Reviews from "./Reviews";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  console.log('prod_details:', id)
 
   const { addItem } = useCart();
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  // const [reviews, setReviews] = useState([]);
-  // const [review, setReview] = useState({
-  //   user: "",
-  //   rating: 5,
-  //   content: "",
-  //   product_id: id
-  // });
 
   const navigate = useNavigate();
   const API = process.env.REACT_APP_API_URL;
@@ -33,48 +25,27 @@ export default function ProductDetails() {
       .then((res) => {
         setProduct(res.data.payload);
       })
-      .catch((error) => console.log(error));
-  }, [id]);
+      .catch((error) => {
+        navigate('/not-found')
+        console.log(error)
+      });
+
+  }, [id, navigate]);
 
   // Delete product, trigger modal
   const deleteProduct = () => {
     axios
       .delete(`${API}/products/${id}`)
-      .then(() => {
+      .then((response) => {
+        console.log(response)
         navigate(`/products`);
       })
-      .catch((error) => console.error("catch", error));
+      .catch((error) => {
+        console.error("catch", error);
+        console.warn(error)
+      });
   };
   
-  /*
-  **********************************
-    REVIEWS DATA
-  **********************************
-   */
-  
-  // useEffect(() => {
-  //   axios
-  //     .get(`${API}/reviews/${id}`)
-  //     .then((res) => {
-  //       setReviews(res.data.payload);
-  //       console.log(res.data.payload)
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
-
-  
-  // Create product review
-  // const createReview = (review) => {
-  //   console.log(review)
-  //   axios
-  //     .post(`${API}/reviews`, review)
-  //     .then(() => {
-  //       //navigate(`/products`);
-  //       //notify();
-  //     })
-  //     .catch((error) => console.warn("catch", error));
-  // };
-
   
   const calculateTotal = () => {
     console.log(product.price)
@@ -86,8 +57,6 @@ export default function ProductDetails() {
     for(let i=1; i<=10; i++) {
       options.push({'value':i});
     }
-    //console.log(product.price)
-    //setTotal(product.price);
     return options;
   };
 
@@ -97,7 +66,17 @@ export default function ProductDetails() {
   };
 
   const handleDelete = () => {
-    deleteProduct();
+    navigate(`/products`);
+    axios
+      .delete(`${API}/products/${id}`)
+      .then((response) => {
+        console.log(response)
+        navigate(`/products`);
+      })
+      .catch((error) => {
+        console.error("catch", error);
+        console.warn(error)
+      });
   };
 
   const handleEdit = () => {
@@ -112,11 +91,6 @@ export default function ProductDetails() {
   // const addToCart = async (e) => {
   //   e.preventDefault();
   //   await addItem(product, 1);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await createReview(review);
   // };
 
   return (
@@ -167,7 +141,52 @@ export default function ProductDetails() {
         </div>
       {/* Modal dialog */}
       <div className="relative bg-white p-4">
-        <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-12 lg:items-center">
+        <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-12 lg:items-center relative">
+          
+          <div className="mt-0 absolute top-0 right-0">
+              <button 
+                id="dropdownDefault" 
+                data-dropdown-toggle="dropdown" 
+                class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+                type="button"
+              >
+                Manage Product
+                <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div id="dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                  <li>
+                    <button
+                      onClick={() => handleClick()}
+                      type="button" 
+                      className="w-full py-2 px-4 hover:bg-gray-100 text-left"
+                      data-bs-toggle="tooltip" data-bs-placement="top" title="Back to snacks"
+                    >
+                      Go to Products
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      class="w-full py-2 px-4 hover:bg-gray-100 text-left"
+                      type="button" 
+                      data-modal-toggle="popup-modal"
+                    >
+                      Delete Product
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => handleEdit()}
+                      type="button" 
+                      className="w-full py-2 px-4 hover:bg-gray-100 text-left"
+                      data-bs-toggle="tooltip" data-bs-placement="top" title="Submit data"
+                    > 
+                      Edit Product
+                    </button>
+                  </li>
+                </ul>
+              </div>
+          </div>
           <div className="lg:col-start-2 md:pl-20">
             <div className="text-xl font-bold text-teal-500 text-left">
               {product.category}
@@ -188,7 +207,7 @@ export default function ProductDetails() {
                       </div>
                     </div>
                     <div className="text-gray-600 text-xs">
-                      <span className="text-4xl font-bold text-gray-900">
+                      <span className="text-4xl font-bold text-teal-600">
                         ${product.price}
                       </span>
                     </div>
@@ -201,15 +220,15 @@ export default function ProductDetails() {
                     </div>
                     {/* <div class="flex-1 pl-1 mr-16">
                       <div class="font-medium text-left">
-                        Protein:
+                        :
                       </div>
                     </div> */}
                     <div className="text-gray-600 text-xs">
                     {(product.product_tags) 
                     ?
-                    <span className="px-4 py-1 text-base rounded-full text-white bg-blue-800 ">
-                      {product.product_tags}
-                    </span>
+                      <span className="px-4 py-1 text-sm font-bold rounded-full text-white bg-blue-800 ">
+                        {product.product_tags}
+                      </span>
                     : null
                     }
                     </div>
@@ -232,46 +251,18 @@ export default function ProductDetails() {
                 <li className="flex flex-row">
                   <div className="select-none cursor-pointer flex flex-1 items-center p-4">
                     <div className="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                      
                     </div>
                     <div className="flex-1 pl-1 mr-16">
                       <div className="font-medium text-left">
-                        
                       </div>
                     </div>
                     <div className="text-gray-600 text-xs">
-                      <div className="flex items-center mt-0">
-                        <button
-                          onClick={() => handleClick()}
-                          type="button" 
-                          className="w-full items-center border-l border-t border-b text-base font-bold rounded-l-md bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 px-4 py-4"
-                          data-bs-toggle="tooltip" data-bs-placement="top" title="Back to snacks"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" 
-                              className="w-4 h-4 mx-auto object-center" fill="#FFFFFF" viewBox="0 0 24 24">
-                            <path d="M13.427 3.021h-7.427v-3.021l-6 5.39 6 5.61v-3h7.427c3.071 0 5.561 2.356 5.561 5.427 0 3.071-2.489 5.573-5.561 5.573h-7.427v5h7.427c5.84 0 10.573-4.734 10.573-10.573s-4.733-10.406-10.573-10.406z"/>
-                          </svg>
-                        </button>
-                        <button
-                          onClick={() => handleDelete()} 
-                          type="button" 
-                          className="w-full items-center border text-base font-bold bg-gray-900 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 px-4 py-4"
-                          data-bs-toggle="tooltip" data-bs-placement="top" title="Delete data"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" 
-                              className="w-4 h-4 mx-auto object-center" fill="#FFFFFF" viewBox="0 0 24 24">
-                            <path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2m-9-14c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6 0c0-.552-.448-1-1-1s-1 .448-1 1v9c0 .552.448 1 1 1s1-.448 1-1v-9zm6-5h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-12-2h4v-1h-4v1z"/>
-                          </svg>
-                        </button>
-                        <button
-                          onClick={() => handleEdit()}
-                          type="button" 
-                          className="w-full items-center border-t border-b border-r text-base font-bold rounded-r-md bg-gray-900 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 px-4 py-4"
-                          data-bs-toggle="tooltip" data-bs-placement="top" title="Submit data"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mx-auto object-center" fill="#FFFFFF" viewBox="0 0 24 24"><path d="M18.31 2.828l2.862 2.862-15.032 15.032-3.583.722.723-3.585 15.03-15.031zm0-2.828l-16.872 16.872-1.438 7.128 7.127-1.437 16.873-16.874-5.69-5.689zm-.021 5.004l-12.728 12.728.707.708 12.728-12.728-.707-.708z"/></svg>
-                        </button>
-                      </div>  
+                      <button 
+                        type="button" 
+                        class="py-2 px-10 flex justify-center items-center bg-blue-400 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"
+                      >
+                        Buy Now
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -281,7 +272,7 @@ export default function ProductDetails() {
           <div className="mt-10 -mx-4 md:-mx-12 relative lg:mt-0 lg:col-start-1 ">
             <div className="flex-shrink-0 absolute top-2 right-2 z-50">
               <div className="p-4 flex items-center mx-auto justify-center">
-              {product.in_stock 
+              {(product.in_stock >= 1)
                 ?
                 <span className="p-2 bg-teal-600 text-white text-md font-bold rounded-sm">In Stock</span>
                 // (<img className="max-h-40 w-full object-cover" src={heartSolid} alt="healthy food" />) 
@@ -291,14 +282,38 @@ export default function ProductDetails() {
               }
               </div>
             </div>
-            <div className=" ">
+            <div className="container bg-teal-200 shadow ">
               <img src={product.image_url} alt={product.name} className="w-8/12 relative mx-auto"/>
             </div>
           </div>
         </div>
     </div>
     <div className="relative bg-white p-4">
-      <Reviews />
+      <Reviews  />
+    </div>
+    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+    <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-6 text-center">
+                <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+                <button
+                  onClick={(e) => handleDelete(e)} 
+                  data-modal-toggle="popup-modal"
+                  type="button" 
+                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete data"
+                >
+                  Proceed
+                </button>
+                <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
   );

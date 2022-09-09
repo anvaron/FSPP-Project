@@ -8,17 +8,18 @@ const API = process.env.REACT_APP_API_URL;
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
+
   let { id } = useParams();
-  console.log('reviews==', id)
+  console.log('useParams=', useParams())
 
   useEffect(() => {
     axios.get(`${API}/products/${id}/reviews`).then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       setReviews(response.data);
     });
   }, [id]);
 
-  const handleAdd = (review) => {
+  const handleCreate = (review) => {
     axios
       .post(`${API}/products/${id}/reviews`, review)
       .then(
@@ -30,22 +31,20 @@ export default function Reviews() {
       .catch((c) => console.warn("catch", c));
   };
 
-  const handleDelete = (id) => {
+  
+  const handleDelete = (review_id) => {
     axios
-      .delete(`${API}/products/${id}/reviews/${id}`)
-      .then(
-        (response) => {
-          const copyReviewArray = [...reviews];
-          const indexDeletedReview = copyReviewArray.findIndex((review) => {
-            return review.review_id === id;
-          });
-          copyReviewArray.splice(indexDeletedReview, 1);
-          setReviews(copyReviewArray);
-        },
-        (error) => console.error(error)
-      )
-      .catch((c) => console.warn("catch", c));
-  };
+      .delete(`${API}/products/${id}/reviews/${review_id}`)
+      .then(() => {
+        const copyReviewArray = [...reviews]
+        const indexDeletedReview = copyReviewArray.findIndex((review) => {
+          return review.review_id === review_id
+        })
+        copyReviewArray.splice(indexDeletedReview, 1)
+        setReviews(copyReviewArray)
+      })
+      .catch((c) => console.warn('catch', c))
+  }
 
   const handleEdit = (updatedReview) => {
     console.log(updatedReview)
@@ -59,6 +58,7 @@ export default function Reviews() {
         const indexUpdatedReview = copyReviewArray.findIndex((review) => {
           return review.review_id === updatedReview.review_id;
         });
+
         copyReviewArray[indexUpdatedReview] = response.data;
         setReviews(copyReviewArray);
       })
@@ -66,18 +66,22 @@ export default function Reviews() {
   };
 
   return (
+    <>
+    <div className="flex">
+      <h2 className="mb-4 font-bold text-black sm:text-2xl text-xl text-left">
+        Product reviews 
+        <span className="px-4 py-2 mx-2 text-sm font-bold rounded-full text-white bg-teal-400 ">
+          ( {reviews.length} ) Reviews
+        </span>
+      </h2>
+    </div>
+      
     <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-12 lg:items-center">
       <div className="lg:col-start-2 md:pl-20">
-        <ReviewsForm handleSubmit={handleAdd} />
+        <ReviewsForm handleSubmit={handleCreate} />
       </div>
       <div className="mt-0 -mx-4 md:-mx-12 relative lg:mt-0 lg:col-start-1 ">
-        {(reviews)
-        ? 
-          <h2 className="mb-4 font-bold text-black sm:text-2xl text-xl">
-            Product reviews
-          </h2>
-        : null}
-
+        
         {(reviews)
         ?
           reviews.map((review, index) => (
@@ -91,5 +95,6 @@ export default function Reviews() {
         : null} 
       </div>     
     </div>
+    </>
   );
 }
