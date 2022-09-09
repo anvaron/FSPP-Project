@@ -54,10 +54,10 @@ const updateReview = async (id, review) => {
   try {
     const query = await db.one(`
       UPDATE product_reviews 
-			SET username=$1, content=$2, rating=$3 
-			WHERE review_id=$4 
+			SET username=$1, content=$2, rating=$3, product_id=$4 
+			WHERE review_id=$5
 			RETURNING *`,
-      [review.username, review.content, review.rating, id]
+      [review.username, review.content, review.rating, review.product_id, id]
     );
 		console.log(query)
     return query;

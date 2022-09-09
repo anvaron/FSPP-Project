@@ -27,7 +27,7 @@ const getProductsByCategory = async (id) => {
       ON product_category.category_id = products.category_id
 			WHERE products.category_id=$1`, id
 			);
-			console.log(query)
+			//console.log(query)
 		return query;
 	} catch (error) {
 		return error;

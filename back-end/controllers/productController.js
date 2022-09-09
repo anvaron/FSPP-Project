@@ -7,13 +7,13 @@ const {
 	getProductsByCategory,
 	updateProductById,
 	createProduct,
-  deleteProductById,
+  deleteProduct,
 } = require("../queries/products");
 
 //const { nameFormatter } = require("../validations/snacksCheck");
 const productController = express();
 
-// GET All products
+// GET: All products
 productController.get("/", async (request, response) => {
 	console.log('no category')
 	const data = await getAllProducts();
@@ -44,7 +44,7 @@ productController.get("/", async (request, response) => {
 // 	}
 // });
 
-// GET products by id
+// GET: product by id
 productController.get("/:id", async (request, response) => {
 	const { id } = request.params;
 	const product = await getProductById(id);
@@ -62,7 +62,7 @@ productController.get("/:id", async (request, response) => {
 	}
 });
 
-// POST create entry
+// POST: create product
 productController.post("/", async (request, response) => {
 	try {
 		const product = await createProduct(request.body);
@@ -76,7 +76,7 @@ productController.post("/", async (request, response) => {
 	}
 });
 
-// PUT update entry
+// PUT: update product
 productController.put("/:id", async (request, response) => {
 	try {
 		const { id } = request.params;
@@ -92,28 +92,38 @@ productController.put("/:id", async (request, response) => {
 	}
 });
 
-// DELETE
-productController.delete("/:id", async (request, response) => {
-	const { id } = request.params;
-	const product = await deleteProductById(id);
-	if (product) {
-		if (product.id) {
-			response.status(200).json({
-				success: true,
-				payload: product,
-			});
-		} else {
-			response.status(404).json({
-				success: false,
-				payload: product,
-			});
-		}
-	} else {
-		response.status(500).json({
-			success: false,
-			payload: product,
-		});
-	}
-});
+// DELETE: delete product
+// productController.delete("/:id", async (request, response) => {
+// 	const { id } = request.params;
+// 	const product = await deleteProductById(id);
+// 	if (product) {
+// 		if (product.id) {
+// 			response.status(200).json({
+// 				success: true,
+// 				payload: product,
+// 			});
+// 		} else {
+// 			response.status(404).json({
+// 				success: false,
+// 				payload: product,
+// 			});
+// 		}
+// 	} else {
+// 		response.status(500).json({
+// 			success: false,
+// 			payload: product,
+// 		});
+// 	}
+// });
+
+productController.delete('/:id', async (request, response) => {
+  const { id } = request.params
+  const product = await deleteProduct(id)
+  if (product.id) {
+    response.status(200).json({ success: true, payload: product })
+  } else {
+    response.status(404).json({ success: false, payload: id })
+  }
+})
 
 module.exports = productController;

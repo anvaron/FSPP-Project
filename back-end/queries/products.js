@@ -1,17 +1,26 @@
 const db = require("../db/dbConfig.js");
 
 //GET all products
-const getAllProducts = async () => {
+const getAllProducts = async (category) => {
+	let where = '';
+	(category) 
+	?
+		where = `WHERE products.category_id=${category}`
+	:
+		null;
+
 	try {
 		const query = await db.any(`
 			SELECT products.product_id as id, products.name, products.price, products.description, products.product_tags, product_category.name AS category, products.image_url, products.in_stock
 			FROM products
 			INNER JOIN product_category 
       ON product_category.category_id = products.category_id
+			${where}
 			ORDER BY product_id DESC`
 			);
 		return query;
 	} catch (error) {
+		console.log('select*:', error.message || error)
 		return error;
 	}
 };
@@ -25,9 +34,10 @@ const getProductsByCategory = async (category) => {
 			INNER JOIN product_category 
       ON product_category.category_id = products.category_id
 			WHERE products.category_id=$1`, category
-			);
+		);
 		return query;
 	} catch (error) {
+		console.log('selectxCat:', error.message || error)
 		return error;
 	}
 };
@@ -36,7 +46,7 @@ const getProductsByCategory = async (category) => {
 const getProductById = async (id) => {
 	try {
 		const query = await db.one(`
-      SELECT products.product_id as id, products.name, products.price, products.description, products.condition, products.product_tags, product_category.name AS category, products.image_url, products.in_stock  
+      SELECT products.product_id as id, products.name, products.price, products.description, products.condition, products.product_tags, products.category_id, product_category.name AS category, products.image_url, products.in_stock  
       FROM products 
       INNER JOIN product_category 
       ON product_category.category_id = products.category_id
@@ -45,6 +55,7 @@ const getProductById = async (id) => {
 		//console.log(query)
 		return query;
 	} catch (error) {
+		console.log('selectxId:', error.message || error)
 		return error;
 	}
 };
@@ -52,50 +63,55 @@ const getProductById = async (id) => {
 // CREATE: one product
 const createProduct = async (product) => {
 	try {
-		const { name, price, description, category_id, image_url, in_stock, product_tags } = product;
+		const { name, price, description, condition, category_id, image_url, in_stock, product_tags } = product;
 		const query = await db.one(`
 			INSERT INTO products (
-        name, price, description, category_id, image_url, in_stock, product_tags
+        name, price, description, condition, category_id, image_url, in_stock, product_tags
       ) 
       VALUES (
-        $1, $2, $3, $4, $5, $6, $7
+        $1, $2, $3, $4, $5, $6, $7, $8
       ) 
       RETURNING *`,
-			[name, price, description, category_id, image_url, in_stock, product_tags]
+			[name, price, description, condition, category_id, image_url, in_stock, product_tags]
 		);
     return query;
 	} catch (error) {
+		console.log('insert:', error.message || error)
 		return error;
 	}
 };
 
 // UPDATE: one product by :id
 const updateProductById = async (id, product) => {
-	const { name, price, description, category_id, image_url, in_stock, product_tags } = product;
+	const { name, price, description, condition, category_id, image_url, in_stock, product_tags } = product;
 	
   try {
 		const query = await db.one(`
 			UPDATE products
-      SET name=$1, price=$2, description=$3, category_id=$4, image_url=$5, in_stock=$6, product_tags=$7
-      WHERE product_id=$8
+      SET name=$1, price=$2, description=$3, condition=$4, category_id=$5, image_url=$6, in_stock=$7, product_tags=$8
+      WHERE product_id=$9
       RETURNING *`,
-			[name, price, description, category_id, image_url, in_stock, product_tags, id]
+			[name, price, description, condition, category_id, image_url, in_stock, product_tags, id]
 		);
 		console.log(query)
     return query;
 	} catch (error) {
+		console.log('update:', error.message || error)
 		return error;
 	}
 };
 
 //DELETE one product by :id
-const deleteProductById = async (id) => {
+const deleteProduct = async (id) => {
 	try {
-		return await db.one(`
+		const query = await db.one(`
       DELETE FROM products WHERE products.product_id=$1 
       RETURNING *`, id
     );
+		return query;
+		console.log(query)
 	} catch (error) {
+		console.log('delete:', error.message || error)
 		return error;
 	}
 };
@@ -106,5 +122,5 @@ module.exports = {
 	getProductsByCategory, 
 	updateProductById, 
 	createProduct, 
-	deleteProductById 
+	deleteProduct 
 };

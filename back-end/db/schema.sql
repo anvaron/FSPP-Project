@@ -42,7 +42,7 @@ CREATE TABLE public.products
     product_tags text,
     category_id integer NOT NULL, 
     image_url character varying,
-    in_stock boolean DEFAULT false NOT NULL,
+    in_stock integer, CHECK (in_stock > 0),
     is_active boolean DEFAULT true NOT NULL,
     PRIMARY KEY (product_id),
     CONSTRAINT fk_category
@@ -58,7 +58,7 @@ CREATE TABLE public.product_reviews
     username text NOT NULL,
     email character varying(100),
     content text NOT NULL,
-    rating integer, CHECK (rating >= 0 AND rating <= 5),
+    rating integer, CHECK (rating >= 1 AND rating <= 5),
     product_id integer NOT NULL,
     date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (review_id)
@@ -79,5 +79,4 @@ CREATE TABLE public.product_reviews
 ALTER TABLE public.product_reviews
     ADD FOREIGN KEY (product_id)
     REFERENCES public.products (product_id)
-    ON DELETE SET NULL
-    NOT VALID;
+    ON DELETE CASCADE

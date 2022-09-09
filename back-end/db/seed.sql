@@ -1,68 +1,78 @@
 \c ecommerce_dev;
 
-
+-- Seed data for table: product_category  
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Electronics', 
-  'Electronic items'
+  'Everything about Gadgets & Devices',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Home', 
-  'Everything for decoration and home improvements'
+  'Everything for Home, Improvements',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Clothing', 
-  'Clothing trends'
+  'Clothing trends, Fashion, Specials',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Baby', 
-  'Everything for baby care'
+  'Everything for Baby care products',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Hobbies', 
-  'Everything for hobbies'
+  'Everything for our Hobbies and Entertainment',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Vehicles', 
-  'Everything for vehicles'
+  'Everything about Vehicles, Accesories, Parts',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Sports', 
-  'Everything for Sports and activities'
+  'Everything for Sports and Outdoor Activities',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Collectibles', 
-  'Everything for Collectibles'
+  'Everything for Collectibles Junkies',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Beauty', 
-  'Everything for Beauty'
+  'Everything for Beauty, Healthcare and Wellness',
+  'https://fakeimg.pl/400x200'
 );
 INSERT INTO product_category (
-  name, description) 
+  name, description, image) 
 VALUES (
   'Pets', 
-  'Everything for Our Pets'
+  'Everything for Our Beloved Pets',
+  'https://fakeimg.pl/400x200'
 );
 
--- -- Seed data for products table 
+-- Seed data for table: products  
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
 VALUES (
   'Morpilot Dog Carrier', 
@@ -72,7 +82,7 @@ VALUES (
   'Pet Supplies',
   10, 
   'http://img.dummy-image-generator.com/sport/dummy-600x600-Basketball.jpg',
-  true,
+  1,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -84,7 +94,7 @@ VALUES (
   'Audio',
   1, 
   'https://fakeimg.pl/600x600/',
-  true,
+  2,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -96,7 +106,7 @@ VALUES (
   'Fashion',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  10,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -108,7 +118,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  2,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -120,7 +130,7 @@ VALUES (
   'PC, Laptops',
   1, 
   'https://fakeimg.pl/600x600/',
-  true,
+  1,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -132,7 +142,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  12,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -144,7 +154,7 @@ VALUES (
   'Furniture',
   4, 
   'https://fakeimg.pl/600x600/',
-  true,
+  1,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -156,7 +166,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  20,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -168,7 +178,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  20,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -180,7 +190,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  20,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -192,7 +202,7 @@ VALUES (
   'Sneakers',
   3, 
   'https://fakeimg.pl/600x600/',
-  true,
+  20,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -204,7 +214,7 @@ VALUES (
   'Gadgets',
   1, 
   'https://fakeimg.pl/600x600/',
-  true,
+  2,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -216,7 +226,7 @@ VALUES (
   'Car Seats',
   4, 
   'https://fakeimg.pl/600x600/',
-  true,
+  1,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -228,7 +238,7 @@ VALUES (
   'Luxury SUV',
   1, 
   'https://fakeimg.pl/600x600/',
-  true,
+  1,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -240,7 +250,7 @@ VALUES (
   'Cars',
   6, 
   'https://fakeimg.pl/600x600/',
-  true,
+  2,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -252,7 +262,7 @@ VALUES (
   'Musical Instruments',
   5, 
   'https://fakeimg.pl/600x600/',
-  true,
+  2,
   true
 );
 INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
@@ -264,12 +274,47 @@ VALUES (
   'SUV',
   6, 
   'https://fakeimg.pl/600x600/',
-  true,
+  1,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  '2020 Tesla Model 3', 
+  '42,000', 
+  'Wonderful Tesla Model 3, One owner - Like new, Just 20 Miles ',
+  'Used',
+  'EV Cars',
+  6, 
+  'https://picsum.photos/id/1071/600/600',
+  1,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  '2022 Ferrari GTI-9000', 
+  '80,000', 
+  'Wonderful Super Car, One owner - Like new, Just 20 Miles ',
+  'Used',
+  'Cars',
+  6, 
+  'https://picsum.photos/id/1072/600/600',
+  1,
+  true
+);
+INSERT INTO products (name, price, description, condition, product_tags, category_id, image_url, in_stock, is_active) 
+VALUES (
+  'MacBook Air Pro', 
+  '10000', 
+  'Wonderful MacBook Air Pro One owner - Like new, Great for Graphic Design - Renders ',
+  'Used',
+  'Laptops',
+  1, 
+  'https://picsum.photos/id/119/600/600',
+  1,
   true
 );
 
-
-
+-- Seed data for table: users  
 INSERT INTO users (password, email, fullname, username, roles, address, city, state, country) 
 VALUES (
   '123456', 
