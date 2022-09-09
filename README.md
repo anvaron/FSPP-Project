@@ -5,7 +5,7 @@ PERN Stack Project
 ## Important Links
 
 - [Deployed API Server](https://fspp-project-api.herokuapp.com)
-- [Deployed Frontend](https://herokuapp.com)
+- [Deployed Frontend](https://fspp-project.netlify.app)
 - [Trello Board](https://trello.com/b/Bcj7uhR4/pern-stack-project)
 - [ERD](https://github.com/anvaron/FSPP-Project/blob/main/assets/fspp_project_erd.png)
 - [Wireframes](https://)
@@ -26,7 +26,7 @@ cd fspp-project/front-end
 # Create a .env file
 REACT_APP_API_URL=http://localhost:3000
 
-# In front-end root, run npm install
+# In front-end root, run npm install command
 npm install
 
 # Then proceed to start the react server
