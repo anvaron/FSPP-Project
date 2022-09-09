@@ -1,4 +1,4 @@
-\c ddna8l2vuf44cn;
+\c daidrebdnvq3md;
 
 -- Seed data for table: product_category  
 INSERT INTO product_category (

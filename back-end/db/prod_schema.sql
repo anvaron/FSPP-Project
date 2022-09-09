@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS ecommerce_dev;
 CREATE DATABASE ecommerce_dev;
 
-\c ddna8l2vuf44cn;
+\c daidrebdnvq3md;
 
 --DROP TABLE IF EXISTS public.users;
 CREATE TABLE users
