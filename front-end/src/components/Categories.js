@@ -31,15 +31,15 @@ export default function Categories( ) {
   };
 
   const handleClick = async (id) => {
-    console.log('handleClick', id)
-    await axios
-      .get(`${API}/products?category=${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          navigate(`/products`);
-        }
-      })
-      .catch((error) => console.log(error));
+    navigate(`/products?category=${id}`);
+    // await axios
+    //   .get(`${API}/products?category=${id}`)
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       navigate(`/products`);
+    //     }
+    //   })
+    //   .catch((error) => console.log(error));
   }
 
   return (

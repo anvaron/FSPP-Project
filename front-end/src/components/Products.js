@@ -10,6 +10,8 @@ const API = process.env.REACT_APP_API_URL;
 export default function Products( props ) {
   const [products, setProducts] = useState([]);
   const { categoryId } = props;
+  console.log(useParams())
+
   let route = '';
   (categoryId === undefined) 
   ?
