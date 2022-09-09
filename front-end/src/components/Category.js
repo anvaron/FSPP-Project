@@ -1,12 +1,6 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
 
-export default function Category({ category }) {
-  let navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/products/${category.id}`);
-  }
+export default function Category({ category, handleClick }) {
 
   return (
     <div class="w-full h-90 overflow-hidden shadow-lg rounded-lg cursor-pointer m-auto bg-white relative">
@@ -28,7 +22,7 @@ export default function Category({ category }) {
       <div class="w-full absolute bottom-4 z-20">
         <div class="text-center">
         <button
-          onClick={() => handleClick()}
+          onClick={() => handleClick(category.id)}
           type="button" 
           className="w-6/12  py-2 px-4 bg-teal-500 hover:bg-teal-800 focus:ring-teal-500 focus:ring-offset-teal-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full"
         >

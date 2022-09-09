@@ -1,11 +1,8 @@
 import Categories from "../components/Categories";
-import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavCategories from "../components/NavCategories";
 
 export default function IndexCategories() {
-
-  const { id } = useParams();
-  console.log('category', id)
 
   return (
     <div className="">

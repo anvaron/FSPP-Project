@@ -254,6 +254,7 @@ export default function ProductDetails() {
                     </div>
                     <div className="flex-1 pl-1 mr-16">
                       <div className="font-medium text-left">
+                        Add to favorites
                       </div>
                     </div>
                     <div className="text-gray-600 text-xs">

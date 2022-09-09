@@ -1,5 +1,6 @@
 //
 const express = require("express");
+// const { default: Category } = require("../../front-end/src/components/Category");
 
 const {
 	getAllProducts,
@@ -15,8 +16,10 @@ const productController = express();
 
 // GET: All products
 productController.get("/", async (request, response) => {
-	console.log('no category')
-	const data = await getAllProducts();
+	const category  = request.query.category;
+	// console.log('productsxCategory:', request.params)
+	console.log('productsxCategory:', category)
+	const data = await getAllProducts(category);
 	if (data[0]) {
 		response.status(200).json({
 			success: true,
@@ -91,30 +94,6 @@ productController.put("/:id", async (request, response) => {
 		return error;
 	}
 });
-
-// DELETE: delete product
-// productController.delete("/:id", async (request, response) => {
-// 	const { id } = request.params;
-// 	const product = await deleteProductById(id);
-// 	if (product) {
-// 		if (product.id) {
-// 			response.status(200).json({
-// 				success: true,
-// 				payload: product,
-// 			});
-// 		} else {
-// 			response.status(404).json({
-// 				success: false,
-// 				payload: product,
-// 			});
-// 		}
-// 	} else {
-// 		response.status(500).json({
-// 			success: false,
-// 			payload: product,
-// 		});
-// 	}
-// });
 
 productController.delete('/:id', async (request, response) => {
   const { id } = request.params

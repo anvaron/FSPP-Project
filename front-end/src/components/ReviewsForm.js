@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 export default function ReviewsForm(props) {
   let { id } = useParams();
   const { reviewData } = props;
-  console.log('props:', props)
-  console.log('useParams:', useParams())
 
   const [review, setReview] = useState({
     user_id: 1,

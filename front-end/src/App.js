@@ -28,8 +28,8 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/products" element={<Index />} />
+            {/* <Route path="/products/category/:id" element={<Index />} /> */}
           <Route path="/categories" element={<IndexCategories />} />
-          {/* <Route path="/products/:categoryId" element={<Index />} /> */}
           <Route path="/products/:id" element={<View />} />
           {/* <Route path="/products/:id/reviews" element={<View />} /> */}
           <Route path="/products/new" element={<New />} />

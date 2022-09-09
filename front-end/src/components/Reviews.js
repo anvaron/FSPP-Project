@@ -24,6 +24,7 @@ export default function Reviews() {
       .post(`${API}/products/${id}/reviews`, review)
       .then(
         (response) => {
+          console.log(response)
           setReviews([response.data, ...reviews]);
         },
         (error) => console.error(error)
@@ -35,32 +36,22 @@ export default function Reviews() {
   const handleDelete = (review_id) => {
     axios
       .delete(`${API}/products/${id}/reviews/${review_id}`)
-      .then(() => {
-        const copyReviewArray = [...reviews]
-        const indexDeletedReview = copyReviewArray.findIndex((review) => {
-          return review.review_id === review_id
-        })
-        copyReviewArray.splice(indexDeletedReview, 1)
-        setReviews(copyReviewArray)
+      .then((response) => {
+        console.log(response)
+        
       })
       .catch((c) => console.warn('catch', c))
   }
 
-  const handleEdit = (updatedReview) => {
-    console.log(updatedReview)
+  const handleEdit = (review) => {
+    console.log(review)
     axios
       .put(
-        `${API}/products/${id}/reviews/${updatedReview.review_id}`,
-        updatedReview
+        `${API}/products/${id}/reviews/${review.review_id}`, review
       )
       .then((response) => {
-        const copyReviewArray = [...reviews];
-        const indexUpdatedReview = copyReviewArray.findIndex((review) => {
-          return review.review_id === updatedReview.review_id;
-        });
-
-        copyReviewArray[indexUpdatedReview] = response.data;
-        setReviews(copyReviewArray);
+        console.log(response)
+        
       })
       .catch((c) => console.warn("catch", c));
   };

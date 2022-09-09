@@ -2,10 +2,10 @@ const db = require("../db/dbConfig.js");
 
 //GET all products
 const getAllProducts = async (category) => {
-	let where = '';
+	let WHERE = '';
 	(category) 
 	?
-		where = `WHERE products.category_id=${category}`
+		WHERE = `WHERE products.category_id=${category}`
 	:
 		null;
 
@@ -15,10 +15,12 @@ const getAllProducts = async (category) => {
 			FROM products
 			INNER JOIN product_category 
       ON product_category.category_id = products.category_id
-			${where}
+			${WHERE}
 			ORDER BY product_id DESC`
-			);
+		);
+		console.log(query)
 		return query;
+		
 	} catch (error) {
 		console.log('select*:', error.message || error)
 		return error;

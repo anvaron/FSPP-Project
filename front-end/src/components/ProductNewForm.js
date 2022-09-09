@@ -50,9 +50,6 @@ export default function ProductNewForm() {
           }, 3000);}
         } else { 
           toast.error('There was an error! Review your data and try again');
-          // setTimeout(() => {
-          //   navigate(`/products`);
-          // }, 5000);
         }
       })
       .catch((error) => console.warn("catch", error));

@@ -3,12 +3,13 @@ import ReviewsForm from "./ReviewsForm";
 import ReactStars from "react-rating-stars-component";
 
 export default function Review({ review, handleDelete, handleSubmit }) {
-  const [viewEditForm, toggleEditForm] = useState(false);
+  
 
   const handleEdit = () => {
     // Clone data, Fill review form
     // Create editable elements
   };
+
   const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
   const date = new Date(review.date).toLocaleDateString('en-us', options);
 
@@ -74,7 +75,6 @@ export default function Review({ review, handleDelete, handleSubmit }) {
               </div>
             </div>
           </div>
-        
       </div>
     </div>
   );
