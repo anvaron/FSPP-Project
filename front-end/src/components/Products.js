@@ -10,7 +10,7 @@ const API = process.env.REACT_APP_API_URL;
 export default function Products( props ) {
   const [products, setProducts] = useState([]);
   const { categoryId } = props;
-  console.log(useParams())
+  
 
   let route = '';
   (categoryId === undefined) 
@@ -39,7 +39,7 @@ export default function Products( props ) {
   return (
     <div className="w-full bg-gray-100">
       <Toaster />
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 grid-flow-row p-4 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 grid-flow-row px-4 py-6 gap-10">
         {products.map((product) => {
           return <Product key={product.id} product={product} />
         })}

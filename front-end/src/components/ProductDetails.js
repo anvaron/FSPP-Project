@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Reviews from "./Reviews";
+import assert from "assert";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -33,9 +34,19 @@ export default function ProductDetails() {
 
   }, [id, navigate]);
 
+  const deleteProduct = async () => {
+    await axios
+      .delete(`${API}/products/${id}`)
+      .then((response) => {
+        
+      })
+      .catch((error) => {
+        console.error("catch", error);
+        console.warn(error)
+      })  
+  };
   
   const calculateTotal = () => {
-    console.log(product.price)
     //setTotal(product.price);
   };
   
@@ -46,6 +57,7 @@ export default function ProductDetails() {
     }
     return options;
   };
+  
 
   // HANDLERS
   const handleClick = () => {
@@ -53,19 +65,9 @@ export default function ProductDetails() {
   };
 
   const handleDelete = async () => {
-    //navigate(`/products`);
-    await axios
-      .delete(`${API}/products/${id}`)
-      .then((response) => {
-        console.log(response)
+    deleteProduct().setTimeout(() => {
         navigate(`/products`);
-      })
-      .catch((error) => {
-        console.error("catch", error);
-        console.warn(error)
-      }).setTimeout(() => {
-        navigate(`/products`);
-      }, 2000);
+      }, 3000);
   };
 
   const handleEdit = () => {
