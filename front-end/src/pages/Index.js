@@ -5,7 +5,7 @@ import NavCategories from "../components/NavCategories";
 export default function Index() {
 
   const { id } = useParams();
-
+  console.log(useParams())
   return (
     <div className="">
       <NavCategories />
