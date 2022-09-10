@@ -34,7 +34,7 @@ export default function Product({ product }) {
           <p class="text-gray-900 text-sm font-bold">
             <span>{product.category}</span>
           </p>
-          <p class="text-gray-600 text-xl font-bold mb-0">
+          <p class="text-gray-500 text-xl font-bold mb-0">
             {product.name}
           </p>
           <p class="text-teal-500 text-3xl font-extrabold mb-2">

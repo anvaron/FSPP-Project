@@ -64,7 +64,8 @@ export default function ProductDetails() {
   };
 
   const handleDelete = () => {
-    deleteProduct().setTimeout(() => {
+    deleteProduct();
+    setTimeout(() => {
         navigate(`/products`);
       }, 3000);
   };
@@ -197,7 +198,6 @@ export default function ProductDetails() {
                 </li>
                 <li className="flex flex-row">
                   <div className="select-none cursor-pointer flex flex-1 items-center p-4">
-                    
                     <div className="flex-1 pl-1 mr-16">
                       <div className="font-medium text-left">
                         <div class="w-7/12 flex items-center">
@@ -232,17 +232,17 @@ export default function ProductDetails() {
             </div>
           </div>
           <div className="mt-10 -mx-4 md:-mx-12 relative lg:mt-0 lg:col-start-1 ">
-            <div className="flex-shrink-0 absolute top-2 right-2 z-40">
+            <div className="flex-shrink-0 absolute top-0 right-0 z-40">
               <div className="p-4 flex items-center mx-auto justify-center">
               {(product.in_stock >= 1)
                 ?
-                <span className="p-2 bg-teal-600 text-white text-md font-bold rounded-sm">In Stock</span>
+                <span className="px-4 py-2 bg-teal-400 text-white text-md font-bold rounded-sm">In Stock</span>
                 : 
-                <span className="p-2 bg-red-400 text-white text-md font-bold rounded-sm">Out of Stock</span>
+                <span className="px-4 py-2 bg-red-400 text-white text-md font-bold rounded-sm">Out of Stock</span>
               }
               </div>
             </div>
-            <div className="container bg-teal-200 shadow ">
+            <div className="container bg-teal-200 rounded-sm shadow-xl ">
               <img src={product.image_url} alt={product.name} className="w-8/12 relative mx-auto"/>
             </div>
           </div>
