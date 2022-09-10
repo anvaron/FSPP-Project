@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Reviews from "./Reviews";
-import assert from "assert";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -64,7 +63,7 @@ export default function ProductDetails() {
     navigate(`/products`);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     deleteProduct().setTimeout(() => {
         navigate(`/products`);
       }, 3000);

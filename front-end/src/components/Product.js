@@ -24,20 +24,20 @@ export default function Product({ product }) {
           <p className="absolute top-0 right-0">
             {(product.in_stock >= 1) 
               ?
-              <span className="py-2 px-4 bg-teal-400 text-white text-md font-semibold rounded-md shadow">In Stock</span>
+              <span className="py-2 px-4 bg-teal-400 text-white text-md font-semibold rounded-md rounded-br-0  shadow">In Stock</span>
               : 
-              <span className="py-2 px-4 bg-red-400 text-white text-md font-semibold rounded-md shadow">Out of Stock</span>
+              <span className="py-2 px-4 bg-red-400 text-white text-md font-semibold rounded-md rounded-md shadow">Out of Stock</span>
             } 
           </p>
         </div>
         <div class="bg-white w-full p-4">
-          <p class="text-teal-600 text-sm font-bold">
+          <p class="text-gray-900 text-sm font-bold">
             <span>{product.category}</span>
           </p>
-          <p class="text-gray-400 text-xl font-bold mb-0">
+          <p class="text-gray-600 text-xl font-bold mb-0">
             {product.name}
           </p>
-          <p class="text-gray-900 text-3xl font-bold mb-2">
+          <p class="text-teal-500 text-3xl font-extrabold mb-2">
             ${product.price} 
           </p>
           <p class="text-gray-400 font-light text-xs">
