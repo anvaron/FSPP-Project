@@ -233,7 +233,7 @@ export default function ProductDetails() {
           </div>
           <div className="mt-10 -mx-4 md:-mx-12 relative lg:mt-0 lg:col-start-1 ">
             <div className="flex-shrink-0 absolute top-0 right-0 z-40">
-              <div className="p-4 flex items-center mx-auto justify-center">
+              <div className="p-0 flex items-center mx-auto justify-center">
               {(product.in_stock >= 1)
                 ?
                 <span className="px-4 py-2 bg-teal-400 text-white text-md font-bold rounded-sm">In Stock</span>
@@ -242,7 +242,7 @@ export default function ProductDetails() {
               }
               </div>
             </div>
-            <div className="container bg-teal-200 rounded-sm shadow-xl ">
+            <div className="container bg-teal-200 rounded-sm shadow-md ">
               <img src={product.image_url} alt={product.name} className="w-8/12 relative mx-auto"/>
             </div>
           </div>
