@@ -21,14 +21,12 @@ export default function Product({ product }) {
             alt={product.name}
             class="w-full mx-auto my-0"
           />
-          <p className="absolute top-5 right-4">
+          <p className="absolute top-0 right-0">
             {(product.in_stock >= 1) 
               ?
-              <span className="p-2 bg-teal-600 text-white text-md font-bold rounded-sm">In Stock</span>
-              // (<img className="max-h-40 w-full object-cover" src={heartSolid} alt="healthy food" />) 
+              <span className="py-2 px-4 bg-teal-400 text-white text-md font-semibold rounded-md shadow">In Stock</span>
               : 
-              <span className="p-2 bg-red-400 text-white text-md font-bold rounded-sm">Out of Stock</span>
-              // (<img className="max-h-40 w-full object-cover" src={heartRegular} alt="unhealthy food" />)
+              <span className="py-2 px-4 bg-red-400 text-white text-md font-semibold rounded-md shadow">Out of Stock</span>
             } 
           </p>
         </div>

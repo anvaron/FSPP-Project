@@ -63,7 +63,9 @@ export default function ProductDetails() {
       .catch((error) => {
         console.error("catch", error);
         console.warn(error)
-      });
+      }).setTimeout(() => {
+        navigate(`/products`);
+      }, 2000);
   };
 
   const handleEdit = () => {
