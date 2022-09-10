@@ -33,20 +33,6 @@ export default function ProductDetails() {
 
   }, [id, navigate]);
 
-  // Delete product, trigger modal
-  const deleteProduct = () => {
-    axios
-      .delete(`${API}/products/${id}`)
-      .then((response) => {
-        console.log(response)
-        navigate(`/products`);
-      })
-      .catch((error) => {
-        console.error("catch", error);
-        console.warn(error)
-      });
-  };
-  
   
   const calculateTotal = () => {
     console.log(product.price)
@@ -66,9 +52,9 @@ export default function ProductDetails() {
     navigate(`/products`);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     //navigate(`/products`);
-    axios
+    await axios
       .delete(`${API}/products/${id}`)
       .then((response) => {
         console.log(response)
@@ -95,28 +81,9 @@ export default function ProductDetails() {
     );
       setFavorites(localStorage.length)
   };
-
-  const getTotalFavorites = () => {
-    for(let i=0; i<localStorage.length; i++) {
-      let key = localStorage.key(i);
-      alert(`${key}: ${localStorage.getItem(key)}`);
-    }
-    
-  };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await addItem(product, quantity);
-  // };
   
-  // const addToCart = async (e) => {
-  //   e.preventDefault();
-  //   await addItem(product, 1);
-  // };
-
   return (
     <>
-    
     <div className="container text-center ">
       <div className="relative bg-white p-4">
         <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-12 lg:items-center relative">
@@ -267,10 +234,8 @@ export default function ProductDetails() {
               {(product.in_stock >= 1)
                 ?
                 <span className="p-2 bg-teal-600 text-white text-md font-bold rounded-sm">In Stock</span>
-                // (<img className="max-h-40 w-full object-cover" src={heartSolid} alt="healthy food" />) 
                 : 
                 <span className="p-2 bg-red-400 text-white text-md font-bold rounded-sm">Out of Stock</span>
-                // (<img className="max-h-40 w-full object-cover" src={heartRegular} alt="unhealthy food" />)
               }
               </div>
             </div>

@@ -23,6 +23,12 @@ export default function ProductEditForm() {
 
   // Load product categories
   useEffect(() => {
+    getCategories();
+    getProductData();
+  }, []);
+
+  // Getting all categories
+  const getCategories = () => {
     axios
       .get(`${API}/categories/`)
       .then((res) => {
@@ -30,20 +36,18 @@ export default function ProductEditForm() {
         
       })
       .catch((error) => console.log(error));
-  }, []);
+  };
 
-  
-  useEffect(() => {
+  // Getting all product's data
+  const getProductData = () => {
     axios
       .get(`${API}/products/${id}`)
       .then(
         (res) => setProduct(res.data.payload),
         (error) => navigate(`/not-found`)
       );
-  }, [id, navigate]);
+  };
 
-  console.log(category) 
-  console.log(product) 
   const updateProduct = (product) => {
     axios
       .put(`${API}/products/${id}`, product)
@@ -83,11 +87,7 @@ export default function ProductEditForm() {
     { id: 0, value: 'Used', label: 'Used' },
     { id: 1, value: 'New', label: 'New' },
   ]
-
-  const categoryOptions = category.map(({ id, name}) => (
-    { 'value': id, 'label': name }
-  ))
-
+  
   return (
     <div className="w-full ">
       <Toaster />
@@ -204,9 +204,6 @@ export default function ProductEditForm() {
             </div>
             <div class="col-span-2 ">
               <div class=" relative ">
-                {console.log(product.category_id)}
-                {console.log(categoryOptions)}
-                {/* {console.log((categoryOptions[product.category_id]).value)} */}
                 <label htmlFor="category_id" className="block mr-4 text-sm font-medium text-gray-900 leading-10">
                   Category
                 </label>
@@ -215,7 +212,6 @@ export default function ProductEditForm() {
                   name="category_id" 
                   value={product.category_id}
                   onChange={(e) => handleChange(e)}
-                  // defaultValue={{ value: product.category_id }}
                   className="w-full py-2 px-4 rounded-md border-transparent bg-transparent border border-gray-300 text-gray-500 focus:border-gray-500 focus:ring-indigo-500 text-sm md:text-base"
                   required
                 >
