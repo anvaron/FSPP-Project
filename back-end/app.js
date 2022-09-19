@@ -26,7 +26,7 @@ app.use("/products", productController);
 app.use("/products/:id/reviews", reviewController);
 app.use("/categories", categoryController);
 app.use("/users", userController);
-app.use("/auth/signup", authController);
+app.use("/signup", authController);
 //app.use("/signin", authController);
 
 app.get("*", (request, response) => {

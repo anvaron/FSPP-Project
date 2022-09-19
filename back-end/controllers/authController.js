@@ -14,7 +14,7 @@ const {
 const authController = express();
 
 // POST
-authController.post("/signup", async (request, response) => {
+authController.post("/", async (request, response) => {
 	try {
 		const user = await registerUser(request.body);
 		response.json({

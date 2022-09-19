@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 import Reviews from "./Reviews";
 
 export default function ProductDetails() {
@@ -33,16 +34,30 @@ export default function ProductDetails() {
 
   }, [id, navigate]);
 
-  const deleteProduct = async () => {
-    await axios
+  const deleteProduct =  () => {
+    toast.promise(
+      axios
       .delete(`${API}/products/${id}`)
       .then((response) => {
+        //setProducts(data.payload)
+      }),
+    {
+      loading: 'Processing...',
+      success: 'Product deleted successfully',
+      error: (err) =>
+        err?.response?.data?.msg ?? 'Something is wrong, Please try again',
+    }
+  );
+
+    // await axios
+    //   .delete(`${API}/products/${id}`)
+    //   .then((response) => {
         
-      })
-      .catch((error) => {
-        console.error("catch", error);
-        console.warn(error)
-      })  
+    //   })
+    //   .catch((error) => {
+    //     console.error("catch", error);
+    //     console.warn(error)
+    //   })  
   };
   
   const calculateTotal = () => {
@@ -65,9 +80,10 @@ export default function ProductDetails() {
 
   const handleDelete = () => {
     deleteProduct();
-    setTimeout(() => {
-        navigate(`/products`);
-      }, 3000);
+    // setTimeout(() => {
+    //     navigate(`/products`);
+    //   }, 3000);
+    navigate(`/products`);
   };
 
   const handleEdit = () => {

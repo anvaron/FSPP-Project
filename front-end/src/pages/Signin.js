@@ -15,8 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const API = process.env.REACT_APP_API_URL;
 
 export default function Signup() {
-  const notify = () => toast('New user registered successfully.');
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     email: "", 
@@ -24,11 +23,10 @@ export default function Signup() {
     username: ""
   });
 
-  const newUser = (user) => {
+  const loginUser = (user) => {
     axios
-      .post(`${API}/auth`, user)
+      .get(`${API}/signin`, user)
       .then(() => {
-        notify();
         //navigate(`/`);
       })
       .catch((error) => console.warn("catch", error));
@@ -41,7 +39,7 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    newUser(user);
+    loginUser(user);
 
   };
 

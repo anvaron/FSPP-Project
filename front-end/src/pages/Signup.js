@@ -32,7 +32,7 @@ export default function Signup() {
 
   const newUser = (user) => {
     axios
-      .post(`${API}/auth/signup`, user)
+      .post(`${API}/signup`, user)
       .then(() => {
         notify();
       })

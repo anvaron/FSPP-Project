@@ -10,11 +10,11 @@ export default function Home() {
   return (
     <div className="h-full bg-white">
         <div className="text-center w-full mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
-            <h2 className="text-5xl font-extrabold text-black sm:text-4xl">
-                <span className="block text-gray-500 text-6xl mt-10 mb-6 py-0 leading-0">
-                  EZ<b className="px-2 py-1 mt-2 text-6xl  bg-teal-600 text-white rounded-md shadow">Trade</b>
+            <h2 className=" font-extrabold text-black sm:text-4xl">
+                <span className="block text-gray-500 text-4xl md:text-6xl italic mt-10 mb-6 py-0 leading-0">
+                  EZ<b className="px-2 py-1 mt-2 text-4xl md:text-6xl bg-teal-600 text-white no-italic rounded-md shadow">Trade</b>
                 </span>
-                <span className="block text-gray-600">
+                <span className="block text-4xl md:text-6xl text-gray-600">
                   Sell, Trade Earn
                 </span>
             </h2>
