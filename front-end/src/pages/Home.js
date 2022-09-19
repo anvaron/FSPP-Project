@@ -19,7 +19,7 @@ export default function Home() {
                 </span>
             </h2>
             <p className="text-xl mt-4 max-w-md mx-auto text-gray-400">
-              Wolcome to the world's most extensize and advanced E-commerce platform.
+              Welcome to the world's most extensize and advanced E-commerce platform.
             </p>
             <div className="lg:mt-0 lg:flex-shrink-0">
                 <div className="mt-12 inline-flex rounded-md shadow">
