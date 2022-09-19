@@ -15,11 +15,11 @@ export default function Home() {
                   EZ<b className="px-2 py-1 mt-2 text-4xl md:text-6xl bg-teal-600 text-white no-italic rounded-md shadow">Trade</b>
                 </span>
                 <span className="block text-4xl md:text-6xl text-gray-600">
-                  Sell, Trade Earn
+                  Sell, Trade <b className="text-teal-600">= Earn</b>
                 </span>
             </h2>
             <p className="text-xl mt-4 max-w-md mx-auto text-gray-400">
-              The world's most advanced platform.
+              Wolcome to the world's most extensize and advanced E-commerce platform.
             </p>
             <div className="lg:mt-0 lg:flex-shrink-0">
                 <div className="mt-12 inline-flex rounded-md shadow">
