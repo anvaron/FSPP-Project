@@ -10,8 +10,6 @@ import toast, { Toaster } from 'react-hot-toast';
 // import { Link, Redirect, useLocation } from "react-router-dom";
 // import PulseLoader from "react-spinners/PulseLoader";
 
-// import AuthService from "../services/auth.service";
-
 const API = process.env.REACT_APP_API_URL;
 
 export default function Signup() {

@@ -1,5 +1,6 @@
 //
 const express = require("express");
+// To review
 // const { default: Category } = require("../../front-end/src/components/Category");
 
 const {
@@ -17,8 +18,8 @@ const productController = express();
 // GET: All products
 productController.get("/", async (request, response) => {
 	const category  = request.query.category;
-	// console.log('productsxCategory:', request.params)
 	console.log('productsxCategory:', category)
+	
 	const data = await getAllProducts(category);
 	if (data[0]) {
 		response.status(200).json({

@@ -13,7 +13,7 @@ export default function ProductNewForm() {
     toast('New Product created successfully.');
     setTimeout(() => {
       navigate(`/products`);
-    }, 5000);
+    }, 3000);
   }
 
   const [category, setCategory] = useState([]);
